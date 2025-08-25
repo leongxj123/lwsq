@@ -83,6 +83,26 @@
             border-bottom: 1px solid #bdc3c7;
         }
 
+        .config-section.collapsed {
+            max-height: 0;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .config-toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
         .config-group {
             display: flex;
             gap: 10px;
@@ -170,6 +190,7 @@
             text-align: left;
             line-height: 1.5;
         }
+
         .message-content p {
             margin-bottom: 8px;
         }
@@ -890,7 +911,7 @@
                 padding: 8px 2px;
                 min-height: 120px;
                 max-height: calc(100dvh - 220px);
-                
+
             }
 
             .message-content {
@@ -999,7 +1020,7 @@
 
         .panel-content {
             padding: 16px;
-            max-height: 500px; 
+            max-height: 500px;
             overflow-y: auto;
             transition: max-height 0.3s ease;
             scrollbar-width: thin;
@@ -1013,7 +1034,7 @@
         }
 
         .panel-content {
-            scroll-behavior: smooth; 
+            scroll-behavior: smooth;
         }
 
         .panel-content::-webkit-scrollbar {
@@ -1036,7 +1057,7 @@
         }
 
         .scroll-indicator {
-            display: none; 
+            display: none;
         }
 
         .panel-content:hover .scroll-indicator {
@@ -1062,28 +1083,28 @@
         }
 
         .literature-sidebar .literature-tools {
-            gap: 15px; 
+            gap: 15px;
         }
 
         .literature-sidebar .tool-group {
             background: #f8f9fa;
-            padding: 12px; 
+            padding: 12px;
             border-radius: 6px;
             border: 1px solid #e9ecef;
         }
 
         .literature-sidebar .tool-group label {
             display: block;
-            margin-bottom: 8px; 
+            margin-bottom: 8px;
             font-weight: bold;
             color: #495057;
-            font-size: 13px; 
+            font-size: 13px;
         }
 
         .literature-sidebar .lit-btn {
-            font-size: 12px; 
-            padding: 6px 10px; 
-            margin: 2px; 
+            font-size: 12px;
+            padding: 6px 10px;
+            margin: 2px;
         }
 
         .tool-group {
@@ -1139,7 +1160,7 @@
         .pdf-viewer-container {
             position: fixed;
             top: 50px;
-            left: calc(100vw - 60vw - 20px); 
+            left: calc(100vw - 60vw - 20px);
             width: 60vw;
             height: 80vh;
             background: #fff;
@@ -1147,13 +1168,13 @@
             z-index: 1000;
             display: none;
             flex-direction: column;
-            resize: none; 
+            resize: none;
             overflow: hidden;
             min-width: 300px;
             min-height: 200px;
-            max-width: none; 
-            max-height: none; 
-            
+            max-width: none;
+            max-height: none;
+
             border: 2px solid #3498db;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
@@ -1224,7 +1245,7 @@
 
         @supports not (transform: translateZ(0)) {
             .pdf-viewer-container {
-                
+
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
         }
@@ -1250,7 +1271,7 @@
             display: none;
         }
 
-        .pdf-viewer-container.minimized .pdf-controls-secondary > *:not(#pdfCompactToggle):not(#pdfMoreOptions):not(#pdfCloseViewer) {
+        .pdf-viewer-container.minimized .pdf-controls-secondary>*:not(#pdfCompactToggle):not(#pdfMoreOptions):not(#pdfCloseViewer) {
             display: none;
         }
 
@@ -1327,7 +1348,7 @@
             overflow-x: auto;
             overflow-y: hidden;
             padding-right: 5px;
-            
+
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
         }
@@ -1372,11 +1393,12 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        .pdf-control-group > * {
+        .pdf-control-group>* {
             flex-shrink: 0;
         }
 
-        .pdf-page-info, .pdf-zoom-input {
+        .pdf-page-info,
+        .pdf-zoom-input {
             font-size: 12px;
             min-width: 0;
             text-align: center;
@@ -1400,7 +1422,7 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 10000; 
+            z-index: 10000;
             min-width: 160px;
             padding: 4px 0;
             margin-top: 2px;
@@ -1505,7 +1527,7 @@
         }
 
         .pdf-viewer-container.compact .pdf-control-group:nth-child(n+3) {
-            display: none; 
+            display: none;
         }
 
         .pdf-viewer-container.compact input {
@@ -1586,16 +1608,16 @@
             overflow: auto;
             background: #f8f9fa;
             position: relative;
-            cursor: grab; 
-            
+            cursor: grab;
+
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            
+
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
         .pdf-canvas-container:active {
-            cursor: grabbing; 
+            cursor: grabbing;
         }
 
         .pdf-canvas-container::-webkit-scrollbar {
@@ -1636,10 +1658,10 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
             background: white;
             cursor: crosshair;
-            display: block; 
+            display: block;
             border-radius: 4px;
             transition: box-shadow 0.3s ease;
-            
+
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
@@ -1668,7 +1690,7 @@
         }
 
         .pdf-text-layer.enabled {
-            opacity: 0.01; 
+            opacity: 0.01;
             pointer-events: auto;
         }
 
@@ -1685,11 +1707,11 @@
         }
 
         .pdf-text-layer.enabled span {
-            background: rgba(255, 255, 0, 0.05); 
+            background: rgba(255, 255, 0, 0.05);
         }
 
         .pdf-text-layer.enabled span:hover {
-            background: rgba(0, 123, 255, 0.1); 
+            background: rgba(0, 123, 255, 0.1);
         }
 
         .pdf-text-layer.debug {
@@ -1837,7 +1859,7 @@
             display: flex;
             flex: 1;
             overflow: hidden;
-            height: 100%; 
+            height: 100%;
         }
 
         .pdf-sidebar {
@@ -1846,9 +1868,9 @@
             border-right: 1px solid #dee2e6;
             display: flex;
             flex-direction: column;
-            height: 100%; 
-            max-height: 100vh; 
-            overflow: hidden; 
+            height: 100%;
+            max-height: 100vh;
+            overflow: hidden;
         }
 
         .pdf-sidebar-tabs {
@@ -1878,7 +1900,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 0; 
+            min-height: 0;
         }
 
         .pdf-tab-panel {
@@ -1921,7 +1943,7 @@
             margin-top: 15px;
             padding-top: 10px;
             border-top: 1px solid #eee;
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
 
         .search-pagination {
@@ -2065,9 +2087,17 @@
             background: #e9ecef;
         }
 
-        .pdf-outline-item.level-1 { margin-left: 0; }
-        .pdf-outline-item.level-2 { margin-left: 15px; }
-        .pdf-outline-item.level-3 { margin-left: 30px; }
+        .pdf-outline-item.level-1 {
+            margin-left: 0;
+        }
+
+        .pdf-outline-item.level-2 {
+            margin-left: 15px;
+        }
+
+        .pdf-outline-item.level-3 {
+            margin-left: 30px;
+        }
 
         .pdf-annotation-item {
             padding: 8px;
@@ -2118,8 +2148,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .pdf-loading-text {
@@ -2153,10 +2188,24 @@
         }
 
         @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
+
+            0%,
+            20% {
+                content: '';
+            }
+
+            40% {
+                content: '.';
+            }
+
+            60% {
+                content: '..';
+            }
+
+            80%,
+            100% {
+                content: '...';
+            }
         }
 
         .pdf-annotation-item {
@@ -2196,8 +2245,8 @@
         .literature-sidebar {
             position: fixed;
             top: 0;
-            left: -320px; 
-            width: 320px; 
+            left: -320px;
+            width: 320px;
             height: 100vh;
             background: #ffffff;
             border-right: 1px solid #dee2e6;
@@ -2249,7 +2298,7 @@
         .literature-sidebar-content {
             flex: 1;
             overflow-y: auto;
-            padding: 15px; 
+            padding: 15px;
         }
 
         .sidebar-overlay {
@@ -2272,27 +2321,27 @@
 
         @media (max-width: 768px) {
             .literature-sidebar {
-                width: 85vw; 
+                width: 85vw;
                 left: -85vw;
             }
         }
 
         @media (max-width: 1024px) and (min-width: 769px) {
             .literature-sidebar {
-                width: 280px; 
+                width: 280px;
                 left: -280px;
             }
         }
 
         .literature-panel {
-            display: none; 
+            display: none;
         }
 
         .literature-panel.expanded {
             position: fixed;
             top: 50px;
             left: 20px;
-            width: 380px; 
+            width: 380px;
             max-height: calc(100vh - 100px);
             z-index: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -2301,11 +2350,11 @@
         }
 
         .literature-panel.expanded .panel-content {
-            max-height: calc(100vh - 150px); 
+            max-height: calc(100vh - 150px);
             flex: 1;
             overflow-y: auto;
-            min-height: 0; 
-            padding-bottom: 20px; 
+            min-height: 0;
+            padding-bottom: 20px;
         }
 
         .file-upload-container.active {
@@ -2353,11 +2402,26 @@
             border: 1px solid #ccc;
         }
 
-        .highlight-btn.yellow { background-color: #ffc107; }
-        .highlight-btn.green { background-color: #28a745; }
-        .highlight-btn.blue { background-color: #007bff; }
-        .highlight-btn.pink { background-color: #dc3545; }
-        .highlight-btn.remove { background-color: #6c757d; color: white; }
+        .highlight-btn.yellow {
+            background-color: #ffc107;
+        }
+
+        .highlight-btn.green {
+            background-color: #28a745;
+        }
+
+        .highlight-btn.blue {
+            background-color: #007bff;
+        }
+
+        .highlight-btn.pink {
+            background-color: #dc3545;
+        }
+
+        .highlight-btn.remove {
+            background-color: #6c757d;
+            color: white;
+        }
 
         .note-editor {
             position: fixed;
@@ -2455,24 +2519,37 @@
                 min-width: 80px;
                 font-size: 12px;
             }
+
+            .config-section.collapsed .config-group:not(:first-child),
+            .config-section.collapsed #advancedToggle,
+            .config-section.collapsed #advancedSettings,
+            .config-section.collapsed #statusMessage {
+                display: none !important;
+            }
+
+            .config-section.collapsed {
+                padding: 10px 20px !important;
+            }
         }
     </style>
 </head>
 
 <body>
-    
+
     <div class="literature-sidebar" id="literatureSidebar">
         <div class="literature-sidebar-header">
             <h3>📚 文献阅读助手</h3>
             <button class="sidebar-toggle" id="literatureSidebarToggle" title="关闭文献助手">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 18px; height: 18px;">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
         </div>
         <div class="literature-sidebar-content" id="literatureSidebarContent">
-            <div class="pdf-status-indicator" id="pdfStatusIndicator" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+            <div class="pdf-status-indicator" id="pdfStatusIndicator"
+                style="font-size: 12px; color: #666; margin-bottom: 15px;">
                 📄 未加载PDF
             </div>
 
@@ -2505,7 +2582,8 @@
                     <label>PDF工具:</label>
                     <button class="lit-btn" id="pdfUploadBtn" title="上传PDF文件到预览器进行阅读和分析">上传PDF</button>
                     <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;">
-                    <button class="lit-btn" id="reopenPDFBtn" title="重新打开已加载的PDF预览器" style="display: none;">重新打开</button>
+                    <button class="lit-btn" id="reopenPDFBtn" title="重新打开已加载的PDF预览器"
+                        style="display: none;">重新打开</button>
                     <button class="lit-btn" id="clearPDFBtn" title="清除当前PDF状态">清除PDF</button>
                     <button class="lit-btn" id="testPDFStatusBtn" title="检查当前PDF加载状态">测试PDF状态</button>
                 </div>
@@ -2518,7 +2596,7 @@
     <div class="container">
         <div class="header">
             <h1>智能学术助手</h1>
-            <h3>本站点仅用于团队项目研究，请勿外传，切勿上传或生成政治、保密、违法相关文件</h3>
+            <h3>用于团队项目研究</h3>
             <div class="header-buttons">
                 <button id="exportButton" class="header-button" title="导出对话">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -2543,11 +2621,20 @@
                     </svg>
                     清空
                 </button>
+                <button id="fullscreenButton" class="header-button" title="全屏模式">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                        </path>
+                    </svg>
+                    全屏
+                </button>
             </div>
         </div>
 
         <div class="config-section">
             <div class="config-group" style="margin-bottom: 10px;">
+                <button class="config-toggle-btn" onclick="toggleConfig()">折叠设置</button>
                 <label for="apiUrl">API地址:</label>
                 <input type="text" id="apiUrl" placeholder="请输入API地址"
                     value="https://api.2023gpt.top/v1/chat/completions">
@@ -2557,17 +2644,13 @@
             <div class="config-group">
                 <label for="modelSelect">模型:</label>
                 <select id="modelSelect">
-                    <option value="gpt-5">gpt5对话</option>
-                    <option value="gpt-5-all">gpt5图文分析</option>
-                    <option value="gpt-4o-all">GPT图文分析</option>
-                    <option value="学术科研1">文献检索1</option>
-                    <option value="学术科研3">文献检索22</option>
+                    <option value="翻译">翻译</option>
+                    <option value="gpt-4o-all">GPT-4O</option>
+                    <option value="学术科研1">学术科研1</option>
+                    <option value="学术科研3">学术科研2</option>
                     <option value="ResearchGPT">ResearchGPT</option>
                     <option value="Pubmed检索">Pubmed检索</option>
                     <option value="PubMed报告">PubMed报告</option>
-                    <option value="文献深度分析1">文献深度分析1</option>
-                    <option value="文献深度分析2">文献深度分析2</option>
-                    <option value="文献深度分析3">文献深度分析3</option>
                     <option value="绘图">绘图1</option>
                     <option value="flux">绘图2</option>
                     <option value="url-analysis">链接内容分析</option>
@@ -2610,13 +2693,14 @@
         </div>
 
         <div class="chat-container" id="chatContainer">
-            
+
         </div>
 
         <div class="literature-panel" id="literaturePanel">
             <div class="panel-header" id="toggleLiteraturePanel">
                 <h3>文献阅读助手</h3>
-                <div class="pdf-status-indicator" id="pdfStatusIndicator" style="font-size: 12px; color: #666; margin-right: 10px;">
+                <div class="pdf-status-indicator" id="pdfStatusIndicator"
+                    style="font-size: 12px; color: #666; margin-right: 10px;">
                     📄 未加载PDF
                 </div>
                 <button class="toggle-btn" id="literaturePanelToggle">▼</button>
@@ -2652,7 +2736,8 @@
                         <label>PDF工具:</label>
                         <button class="lit-btn" id="pdfUploadBtn" title="上传PDF文件到预览器进行阅读和分析">上传PDF</button>
                         <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;">
-                        <button class="lit-btn" id="reopenPDFBtn" title="重新打开已加载的PDF预览器" style="display: none;">重新打开</button>
+                        <button class="lit-btn" id="reopenPDFBtn" title="重新打开已加载的PDF预览器"
+                            style="display: none;">重新打开</button>
                         <button class="lit-btn" id="clearPDFBtn" title="清除当前PDF状态">清除PDF</button>
                         <button class="lit-btn" id="testPDFStatusBtn" title="检查当前PDF加载状态">测试PDF状态</button>
 
@@ -2669,7 +2754,7 @@
         </div>
 
         <div class="input-section">
-            
+
             <div class="file-upload-container" id="fileUploadContainer">
                 <button class="file-upload-close" id="fileUploadClose">×</button>
                 <div class="file-drop-area" id="fileDropArea">
@@ -2688,7 +2773,7 @@
                         </path>
                     </svg>
                 </div>
-                
+
                 <textarea id="messageInput" placeholder="输入您的消息..." autofocus></textarea>
                 <button id="sendButton">发送</button>
                 <button id="stopButton">停止</button>
@@ -2699,7 +2784,7 @@
     <div class="copy-toast" id="copyToast">复制成功</div>
 
     <div class="pdf-viewer-container" id="pdfViewerContainer">
-        
+
         <div class="pdf-resize-handle right" id="pdfResizeRight"></div>
         <div class="pdf-resize-handle bottom" id="pdfResizeBottom"></div>
         <div class="pdf-resize-handle corner" id="pdfResizeCorner" title="拖拽调整大小"></div>
@@ -2707,14 +2792,14 @@
         <div class="pdf-viewer-header" id="pdfViewerHeader">
             <h3 class="pdf-viewer-title" id="pdfViewerTitle">PDF 预览</h3>
             <div class="pdf-viewer-controls">
-                
+
                 <div class="pdf-controls-main">
-                    
+
                     <div class="pdf-control-group">
                         <button class="pdf-control-btn" id="pdfPrevPage" title="上一页 (←)">◀</button>
                         <div class="pdf-page-info">
                             <input type="number" id="pdfPageInput" min="1" value="1"
-                                   style="width: 40px; text-align: center; border: 1px solid #ccc; border-radius: 3px; padding: 1px 2px; font-size: 12px; height: 20px; box-sizing: border-box;">
+                                style="width: 40px; text-align: center; border: 1px solid #ccc; border-radius: 3px; padding: 1px 2px; font-size: 12px; height: 20px; box-sizing: border-box;">
                             / <span id="pdfTotalPages">1</span>
                         </div>
                         <button class="pdf-control-btn" id="pdfNextPage" title="下一页 (→)">▶</button>
@@ -2723,7 +2808,7 @@
                     <div class="pdf-control-group">
                         <button class="pdf-control-btn" id="pdfZoomOut" title="缩小 (Ctrl + 滚轮)">−</button>
                         <input type="text" class="pdf-zoom-input" id="pdfZoomLevel" value="100%" readonly
-                               style="width: 50px; text-align: center; border: 1px solid #ccc; border-radius: 3px; padding: 2px; font-size: 12px; height: 20px; box-sizing: border-box;">
+                            style="width: 50px; text-align: center; border: 1px solid #ccc; border-radius: 3px; padding: 2px; font-size: 12px; height: 20px; box-sizing: border-box;">
                         <button class="pdf-control-btn" id="pdfZoomIn" title="放大 (Ctrl + 滚轮)">+</button>
                         <button class="pdf-control-btn" id="pdfFitWidth" title="适应宽度">📐</button>
                         <button class="pdf-control-btn" id="pdfFitPage" title="适应页面">📄</button>
@@ -2740,7 +2825,7 @@
 
                     <div class="pdf-control-group">
                         <input type="url" id="pdfUrlInput" placeholder="输入PDF或网页URL..."
-                               style="width: 150px; padding: 2px 4px; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; height: 20px; box-sizing: border-box; z-index: 10; position: relative;">
+                            style="width: 150px; padding: 2px 4px; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; height: 20px; box-sizing: border-box; z-index: 10; position: relative;">
                         <button class="pdf-control-btn" id="pdfLoadUrl" title="加载URL">🌐</button>
                     </div>
                 </div>
@@ -2787,15 +2872,18 @@
                         </div>
                         <div class="pdf-tab-panel" id="pdfAnnotationsPanel">
                             <div id="pdfAnnotationsList" style="flex: 1; overflow-y: auto; min-height: 0;">暂无注释</div>
-                            <button class="lit-btn" id="pdfAddNote" style="width: 100%; margin-top: 10px; font-size: 12px; flex-shrink: 0;">添加笔记</button>
-                            <div class="tab-pagination" id="annotationsPagination" style="display: none; flex-shrink: 0;">
+                            <button class="lit-btn" id="pdfAddNote"
+                                style="width: 100%; margin-top: 10px; font-size: 12px; flex-shrink: 0;">添加笔记</button>
+                            <div class="tab-pagination" id="annotationsPagination"
+                                style="display: none; flex-shrink: 0;">
                                 <div class="pagination-info" id="annotationsPaginationInfo"></div>
                                 <div class="pagination-controls" id="annotationsPaginationControls"></div>
                             </div>
                         </div>
                         <div class="pdf-tab-panel" id="pdfBookmarksPanel">
                             <div id="pdfBookmarksList" style="flex: 1; overflow-y: auto; min-height: 0;">暂无书签</div>
-                            <button class="lit-btn" id="pdfAddBookmark" style="width: 100%; margin-top: 10px; font-size: 12px; flex-shrink: 0;">添加书签</button>
+                            <button class="lit-btn" id="pdfAddBookmark"
+                                style="width: 100%; margin-top: 10px; font-size: 12px; flex-shrink: 0;">添加书签</button>
                             <div class="tab-pagination" id="bookmarksPagination" style="display: none; flex-shrink: 0;">
                                 <div class="pagination-info" id="bookmarksPaginationInfo"></div>
                                 <div class="pagination-controls" id="bookmarksPaginationControls"></div>
@@ -2806,7 +2894,8 @@
                                 <input type="text" id="pdfSidebarSearch" placeholder="搜索PDF内容...">
                                 <button id="pdfSidebarSearchBtn">搜索</button>
                             </div>
-                            <div id="pdfSearchResultsList" style="flex: 1; overflow-y: auto; min-height: 0;">输入关键词开始搜索</div>
+                            <div id="pdfSearchResultsList" style="flex: 1; overflow-y: auto; min-height: 0;">输入关键词开始搜索
+                            </div>
                             <div class="tab-pagination" id="searchPagination" style="display: none; flex-shrink: 0;">
                                 <div class="pagination-info" id="searchPaginationInfo"></div>
                                 <div class="pagination-controls" id="searchPaginationControls"></div>
@@ -2879,7 +2968,8 @@
                     </div>
                 </div>
 
-                <div class="page-upload-format" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                <div class="page-upload-format"
+                    style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
                     <div style="margin-bottom: 10px; font-weight: bold; color: #333;">输出格式:</div>
                     <div class="page-upload-option">
                         <label>
@@ -2895,7 +2985,8 @@
                     </div>
                 </div>
 
-                <div class="page-upload-actions" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                <div class="page-upload-actions"
+                    style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
                     <div style="margin-bottom: 10px; font-weight: bold; color: #333;">处理方式:</div>
                     <div class="page-upload-option">
                         <label>
@@ -2943,7 +3034,7 @@
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
                     <div style="margin-bottom: 10px; font-weight: bold; color: #333;">文件名:</div>
                     <input type="text" id="screenshotFileName" placeholder="截图文件名"
-                           style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <div style="font-size: 12px; color: #666; margin-top: 5px;">
                         不包含扩展名，将自动添加.png
                     </div>
@@ -2964,7 +3055,8 @@
         <div class="note-editor-content">
             <div style="margin-bottom: 10px;">
                 <label for="noteTitle">笔记标题:</label>
-                <input type="text" id="noteTitle" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-top: 5px;">
+                <input type="text" id="noteTitle"
+                    style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-top: 5px;">
             </div>
             <div style="margin-bottom: 10px;">
                 <label for="noteContent">笔记内容:</label>
@@ -2972,7 +3064,8 @@
             </div>
             <div style="margin-bottom: 10px;">
                 <label for="noteTags">标签 (用逗号分隔):</label>
-                <input type="text" id="noteTags" placeholder="例如: 重要, 方法论, 结论" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-top: 5px;">
+                <input type="text" id="noteTags" placeholder="例如: 重要, 方法论, 结论"
+                    style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-top: 5px;">
             </div>
         </div>
         <div class="note-editor-actions">
@@ -2980,12 +3073,12 @@
             <button class="pdf-control-btn" id="saveNote" style="background: #28a745;">保存</button>
         </div>
     </div>
-    </div> 
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
@@ -3063,7 +3156,7 @@
             hasWebGL: false,
             hasHardwareAcceleration: false,
 
-            detect: function() {
+            detect: function () {
 
                 try {
                     const canvas = document.createElement('canvas');
@@ -3093,7 +3186,7 @@
                 return this;
             },
 
-            getOptimalRenderSettings: function() {
+            getOptimalRenderSettings: function () {
                 if (this.hasGPU && this.hasWebGL) {
                     return {
                         enableWebGL: true,
@@ -5155,7 +5248,7 @@
 
                 const loadingTask = pdfjsLib.getDocument(arrayBuffer);
 
-                loadingTask.onProgress = function(progress) {
+                loadingTask.onProgress = function (progress) {
                     if (progress.total > 0) {
                         const percent = Math.round((progress.loaded / progress.total) * 30) + 50;
                         setPDFState(PDFState.LOADING, Math.min(percent, 80));
@@ -6428,11 +6521,11 @@
 
             const now = new Date();
             const timestamp = now.getFullYear() +
-                             String(now.getMonth() + 1).padStart(2, '0') +
-                             String(now.getDate()).padStart(2, '0') + '_' +
-                             String(now.getHours()).padStart(2, '0') +
-                             String(now.getMinutes()).padStart(2, '0') +
-                             String(now.getSeconds()).padStart(2, '0');
+                String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') + '_' +
+                String(now.getHours()).padStart(2, '0') +
+                String(now.getMinutes()).padStart(2, '0') +
+                String(now.getSeconds()).padStart(2, '0');
 
             const defaultFileName = `PDF截图_${currentPDFFileName.replace('.pdf', '')}_第${currentPage}页_${timestamp}`;
             document.getElementById('screenshotFileName').value = defaultFileName;
@@ -7123,7 +7216,7 @@
             state.currentPage = page;
             state.visitedPages.add(page);
 
-            switch(tabName) {
+            switch (tabName) {
                 case 'outline':
                     displayPageData(tabName, renderOutlinePage);
                     break;
@@ -7558,7 +7651,7 @@
         window.scrollLiteraturePanelToTop = scrollLiteraturePanelToTop;
         window.scrollLiteraturePanelToBottom = scrollLiteraturePanelToBottom;
 
-        window.openLiteratureSidebar = function() {
+        window.openLiteratureSidebar = function () {
             const sidebar = document.getElementById('literatureSidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const btnText = document.getElementById('sidebarBtnText');
@@ -7577,7 +7670,7 @@
             }
         };
 
-        window.closeLiteratureSidebar = function() {
+        window.closeLiteratureSidebar = function () {
             const sidebar = document.getElementById('literatureSidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const btnText = document.getElementById('sidebarBtnText');
@@ -7596,7 +7689,7 @@
             }
         };
 
-        window.setSidebarWidth = function(width) {
+        window.setSidebarWidth = function (width) {
             const sidebar = document.getElementById('literatureSidebar');
             if (sidebar) {
                 sidebar.style.width = width + 'px';
@@ -7605,7 +7698,7 @@
             }
         };
 
-        window.testPDFDrag = function() {
+        window.testPDFDrag = function () {
             const container = document.getElementById('pdfViewerContainer');
             if (container) {
                 const rect = container.getBoundingClientRect();
@@ -7624,7 +7717,7 @@
             }
         };
 
-        window.maximizePDFViewer = function() {
+        window.maximizePDFViewer = function () {
             const container = document.getElementById('pdfViewerContainer');
             if (container) {
                 container.style.width = '95vw';
@@ -7635,7 +7728,7 @@
             }
         };
 
-        window.resetPDFViewerSize = function() {
+        window.resetPDFViewerSize = function () {
             const container = document.getElementById('pdfViewerContainer');
             if (container) {
                 container.style.width = '60vw';
@@ -7646,18 +7739,18 @@
             }
         };
 
-        window.centerPDFViewer = function() {
+        window.centerPDFViewer = function () {
             const container = document.getElementById('pdfViewerContainer');
             if (container) {
                 const width = container.offsetWidth;
                 const height = container.offsetHeight;
-                container.style.left = `calc(50vw - ${width/2}px)`;
-                container.style.top = `calc(50vh - ${height/2}px)`;
+                container.style.left = `calc(50vw - ${width / 2}px)`;
+                container.style.top = `calc(50vh - ${height / 2}px)`;
                 console.log('PDF预览框已居中');
             }
         };
 
-        window.testUrlInput = function() {
+        window.testUrlInput = function () {
             const urlInput = document.getElementById('pdfUrlInput');
             const loadBtn = document.getElementById('pdfLoadUrl');
 
@@ -7675,7 +7768,7 @@
             }
         };
 
-        window.testWebPageScreenshot = function() {
+        window.testWebPageScreenshot = function () {
             const webContainer = document.getElementById('webPageContainer');
             const iframe = document.getElementById('webPageIframe');
             const screenshotBtn = document.getElementById('webPageScreenshot');
@@ -7705,7 +7798,7 @@
             }
         };
 
-        window.testCoordinateCalculation = function(left = 100, top = 100, width = 200, height = 150) {
+        window.testCoordinateCalculation = function (left = 100, top = 100, width = 200, height = 150) {
             const webContainer = document.getElementById('webPageContainer');
             if (!webContainer) {
                 console.error('找不到网页容器');
@@ -7745,7 +7838,7 @@
             });
         };
 
-        window.calibrateBrowserUI = function(actualUIHeight) {
+        window.calibrateBrowserUI = function (actualUIHeight) {
             if (typeof actualUIHeight === 'number' && actualUIHeight > 0) {
                 window.customBrowserUIHeight = actualUIHeight;
                 console.log('📷 已设置自定义UI高度:', actualUIHeight);
@@ -7762,12 +7855,12 @@
             }
         };
 
-        window.stopLiteratureScrolling = function() {
+        window.stopLiteratureScrolling = function () {
             const panelContent = document.getElementById('literaturePanelContent');
             if (panelContent) {
 
                 panelContent.removeEventListener('scroll', throttledUpdate);
-                panelContent.removeEventListener('keydown', () => {});
+                panelContent.removeEventListener('keydown', () => { });
 
                 const scrollIndicator = document.getElementById('literatureScrollIndicator');
                 if (scrollIndicator) {
@@ -7834,7 +7927,7 @@
 
             panelContent.addEventListener('keydown', (e) => {
                 if (e.target === panelContent || panelContent.contains(e.target)) {
-                    switch(e.key) {
+                    switch (e.key) {
                         case 'PageDown':
                             e.preventDefault();
                             panelContent.scrollBy(0, panelContent.clientHeight * 0.8);
@@ -8004,7 +8097,7 @@
 
                 container.classList.add('resizing');
                 document.body.style.cursor = type === 'right' ? 'ew-resize' :
-                                           type === 'bottom' ? 'ns-resize' : 'nw-resize';
+                    type === 'bottom' ? 'ns-resize' : 'nw-resize';
 
                 e.preventDefault();
                 e.stopPropagation();
@@ -8118,8 +8211,8 @@
                 console.log('加载URL:', validUrl.href);
 
                 const isPDF = validUrl.pathname.toLowerCase().endsWith('.pdf') ||
-                             validUrl.href.toLowerCase().includes('.pdf') ||
-                             validUrl.searchParams.get('type') === 'pdf';
+                    validUrl.href.toLowerCase().includes('.pdf') ||
+                    validUrl.searchParams.get('type') === 'pdf';
 
                 if (isPDF) {
 
@@ -8323,23 +8416,23 @@
                     height: { ideal: 1080 }
                 }
             })
-            .then(stream => {
+                .then(stream => {
 
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.play();
+                    const video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.play();
 
-                enableWebPageAreaSelection(video, stream);
+                    enableWebPageAreaSelection(video, stream);
 
-            })
-            .catch(error => {
-                console.error('屏幕录制失败:', error);
-                if (error.name === 'NotAllowedError') {
-                    showStatus('用户取消了屏幕录制权限', 'warning');
-                } else {
-                    showStatus('屏幕录制失败: ' + error.message, 'error');
-                }
-            });
+                })
+                .catch(error => {
+                    console.error('屏幕录制失败:', error);
+                    if (error.name === 'NotAllowedError') {
+                        showStatus('用户取消了屏幕录制权限', 'warning');
+                    } else {
+                        showStatus('屏幕录制失败: ' + error.message, 'error');
+                    }
+                });
         }
 
         function enableWebPageAreaSelection(video, stream) {
@@ -10123,7 +10216,30 @@
             }
         }
 
-        window.addEventListener('error', function(e) {
+        function toggleConfig() {
+            const configSection = document.querySelector('.config-section');
+            if (!configSection) return;
+
+            configSection.classList.toggle('collapsed');
+
+            const btn = configSection.querySelector('.config-toggle-btn');
+            if (btn) {
+                const isCollapsed = configSection.classList.contains('collapsed');
+                btn.textContent = isCollapsed ? '展开设置' : '折叠设置';
+            }
+        }
+
+        // JavaScript功能
+        document.getElementById('fullscreenButton').addEventListener('click', () => {
+            const container = document.querySelector('.container');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        window.addEventListener('error', function (e) {
 
             const errorSource = e.filename || e.source || '';
             const errorMessage = e.message || '';
@@ -10164,7 +10280,7 @@
             }
         });
 
-        window.addEventListener('unhandledrejection', function(e) {
+        window.addEventListener('unhandledrejection', function (e) {
             const reason = e.reason || '';
             const reasonStr = reason.toString ? reason.toString() : String(reason);
 
@@ -10179,7 +10295,7 @@
             console.error('未处理的Promise拒绝:', e.reason);
         });
 
-        window.addEventListener('unhandledrejection', function(e) {
+        window.addEventListener('unhandledrejection', function (e) {
             console.error('Unhandled promise rejection:', e.reason);
 
             if (e.reason && e.reason.message && e.reason.message.includes('PDF')) {
@@ -10194,7 +10310,7 @@
             renderTimes: [],
             loadTimes: [],
 
-            recordRenderTime: function(startTime) {
+            recordRenderTime: function (startTime) {
                 const endTime = performance.now();
                 const renderTime = endTime - startTime;
                 this.renderTimes.push(renderTime);
@@ -10210,7 +10326,7 @@
                 }
             },
 
-            recordLoadTime: function(startTime) {
+            recordLoadTime: function (startTime) {
                 const endTime = performance.now();
                 const loadTime = endTime - startTime;
                 this.loadTimes.push(loadTime);
@@ -10218,7 +10334,7 @@
                 console.log(`PDF加载耗时: ${loadTime.toFixed(2)}ms`);
             },
 
-            getAverageRenderTime: function() {
+            getAverageRenderTime: function () {
                 if (this.renderTimes.length === 0) return 0;
                 return this.renderTimes.reduce((a, b) => a + b, 0) / this.renderTimes.length;
             }
@@ -10233,5 +10349,3 @@
 </body>
 
 </html>
-
-
