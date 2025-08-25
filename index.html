@@ -2819,7 +2819,6 @@
             <div class="config-group">
                 <label for="modelSelect">模型:</label>
                 <select id="modelSelect">
-                    <option value="gpt-5">gpt5对话</option>
                     <option value="gpt-5-all">gpt5图文分析</option>
                     <option value="gpt-4o-all">GPT图文分析</option>
                     <option value="学术科研1">文献检索1</option>
@@ -9509,10 +9508,9 @@
             }
 
             if (role === 'assistant') {
-
                 contentDiv.innerHTML = parseMarkdown(content);
+                processMessageContent(contentDiv); // 添加这一行
             } else {
-
                 contentDiv.textContent = content;
             }
 
@@ -9637,19 +9635,189 @@
         }
 
         function processMessageContent(contentDiv) {
-
+            // 处理图片
             const images = contentDiv.querySelectorAll('img');
             images.forEach(img => {
-
                 img.style.maxWidth = '30%';
                 img.style.height = 'auto';
                 img.style.maxHeight = '300px';
                 img.style.objectFit = 'contain';
 
                 img.addEventListener('load', function () {
-
                     chatContainer.scrollTop = chatContainer.scrollHeight;
                 });
+            });
+
+            // 处理代码块
+            const codeBlocks = contentDiv.querySelectorAll('pre');
+            codeBlocks.forEach(preElement => {
+                // 创建代码块容器
+                const codeContainer = document.createElement('div');
+                codeContainer.style.cssText = 'position: relative; margin: 8px 0;';
+
+                // 创建按钮容器
+                const buttonContainer = document.createElement('div');
+                buttonContainer.style.cssText = `
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        `;
+
+                // 创建复制按钮
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = '复制';
+                copyBtn.style.cssText = `
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        `;
+
+                // 创建下载按钮
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '下载';
+                downloadBtn.style.cssText = `
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        `;
+
+                // 获取代码内容
+                const codeElement = preElement.querySelector('code');
+                const codeText = codeElement ? codeElement.textContent : preElement.textContent;
+
+                // 检测代码语言（从class中提取，如 language-javascript）
+                let language = 'txt';
+                if (codeElement && codeElement.className) {
+                    const match = codeElement.className.match(/language-(\w+)/);
+                    if (match) {
+                        language = match[1];
+                    }
+                }
+
+                // 复制按钮点击事件
+                copyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(codeText).then(() => {
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = '已复制';
+                        copyBtn.style.background = '#d4edda';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                            copyBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败:', err);
+                        copyBtn.textContent = '复制失败';
+                        copyBtn.style.background = '#f8d7da';
+                        setTimeout(() => {
+                            copyBtn.textContent = '复制';
+                            copyBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                        }, 2000);
+                    });
+                });
+
+                // 下载按钮点击事件
+                downloadBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    // 根据语言类型设置文件扩展名
+                    const extensionMap = {
+                        'javascript': 'js',
+                        'python': 'py',
+                        'java': 'java',
+                        'cpp': 'cpp',
+                        'c': 'c',
+                        'csharp': 'cs',
+                        'html': 'html',
+                        'css': 'css',
+                        'json': 'json',
+                        'xml': 'xml',
+                        'sql': 'sql',
+                        'bash': 'sh',
+                        'shell': 'sh',
+                        'powershell': 'ps1',
+                        'yaml': 'yaml',
+                        'markdown': 'md',
+                        'typescript': 'ts',
+                        'jsx': 'jsx',
+                        'tsx': 'tsx',
+                        'php': 'php',
+                        'ruby': 'rb',
+                        'go': 'go',
+                        'rust': 'rs',
+                        'swift': 'swift',
+                        'kotlin': 'kt'
+                    };
+
+                    const fileExtension = extensionMap[language] || 'txt';
+                    const timestamp = new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-');
+                    const fileName = `code_${timestamp}.${fileExtension}`;
+
+                    // 创建Blob并下载
+                    const blob = new Blob([codeText], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    // 显示下载成功提示
+                    const originalText = downloadBtn.textContent;
+                    downloadBtn.textContent = '已下载';
+                    downloadBtn.style.background = '#d4edda';
+                    setTimeout(() => {
+                        downloadBtn.textContent = originalText;
+                        downloadBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                    }, 2000);
+                });
+
+                // 鼠标悬停效果
+                copyBtn.addEventListener('mouseenter', () => {
+                    copyBtn.style.background = '#f0f0f0';
+                });
+                copyBtn.addEventListener('mouseleave', () => {
+                    copyBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                });
+
+                downloadBtn.addEventListener('mouseenter', () => {
+                    downloadBtn.style.background = '#f0f0f0';
+                });
+                downloadBtn.addEventListener('mouseleave', () => {
+                    downloadBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                });
+
+                // 将按钮添加到容器
+                buttonContainer.appendChild(copyBtn);
+                buttonContainer.appendChild(downloadBtn);
+
+                // 显示/隐藏按钮
+                codeContainer.addEventListener('mouseenter', () => {
+                    buttonContainer.style.opacity = '1';
+                });
+                codeContainer.addEventListener('mouseleave', () => {
+                    buttonContainer.style.opacity = '0';
+                });
+
+                // 重新组织DOM结构
+                preElement.parentNode.insertBefore(codeContainer, preElement);
+                codeContainer.appendChild(preElement);
+                codeContainer.appendChild(buttonContainer);
             });
         }
 
@@ -10025,6 +10193,7 @@
 
                     contentDiv.innerHTML = parseMarkdown(assistantMessage);
                     processMessageContent(contentDiv);
+
 
                     const direction = textDirectionSelect.value;
                     if (direction === 'rtl') {
