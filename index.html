@@ -3654,7 +3654,29 @@
             },
 
             // 创建新会话
+            // 创建新会话
             createNewSession: function (title = null) {
+                // 先保存当前会话（如果存在）
+                if (this.currentSessionId && this.sessions[this.currentSessionId]) {
+                    // 如果当前会话正在生成，保存生成状态
+                    const currentSession = this.sessions[this.currentSessionId];
+                    if (currentSession.status === 'generating') {
+                        // 查找正在生成的消息并保存当前内容
+                        const generatingMsg = chatContainer.querySelector('.message.assistant:last-child .message-content');
+                        if (generatingMsg) {
+                            const lastAssistantMsg = currentSession.messages.filter(m => m.role === 'assistant').pop();
+                            if (lastAssistantMsg) {
+                                // 保存当前生成的内容（包括HTML）
+                                lastAssistantMsg.tempContent = generatingMsg.innerHTML;
+                                lastAssistantMsg.isGenerating = true;
+                            }
+                        }
+                    }
+
+                    // 保存当前会话的所有消息
+                    this.saveCurrentSession();
+                }
+
                 const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
                 const now = new Date();
 
@@ -3678,17 +3700,21 @@
                     }
                 };
 
+                // 先设置新的会话ID
+                const previousSessionId = this.currentSessionId;
                 this.currentSessionId = sessionId;
+
+                // 保存会话
                 this.saveSessions();
                 this.renderSessionTabs();
                 this.renderHistoryList();
 
-                // 清空当前聊天界面
+                // 清空当前聊天界面（只有在成功创建新会话后才清空）
                 chatContainer.innerHTML = '';
                 conversationHistory = [];
                 messageElements.clear();
 
-                showStatus('新会话已创建', 'success');
+                // 重置输入框状态
                 sendButton.disabled = false;
                 sendButton.innerHTML = '发送';
                 stopButton.style.display = 'none';
@@ -3696,6 +3722,8 @@
                 messageInput.placeholder = '输入您的消息...';
                 messageInput.value = '';
                 messageInput.style.height = 'auto';
+
+                showStatus('新会话已创建', 'success');
                 return sessionId;
             },
 
@@ -3707,21 +3735,35 @@
                 }
 
                 // 保存当前会话（如果需要）
+                // 保存当前会话（如果需要）
                 if (!skipSave && this.currentSessionId && this.sessions[this.currentSessionId]) {
-                    // 保存当前正在生成的内容
                     const currentSession = this.sessions[this.currentSessionId];
-                    if (currentSession.status === 'generating') {
-                        // 查找正在生成的消息并保存当前内容
+
+                    // 保存当前会话的消息
+                    currentSession.messages = [...conversationHistory];
+
+                    // 如果当前会话正在生成，保存生成状态和内容
+                    if (currentSession.status === 'generating' || this.activeRequests.has(this.currentSessionId)) {
+                        // 查找正在生成的消息
                         const generatingMsg = chatContainer.querySelector('.message.assistant:last-child .message-content');
                         if (generatingMsg) {
+                            // 找到对应的消息
                             const lastAssistantMsg = currentSession.messages.filter(m => m.role === 'assistant').pop();
                             if (lastAssistantMsg) {
                                 // 保存当前生成的内容（包括HTML）
                                 lastAssistantMsg.tempContent = generatingMsg.innerHTML;
                                 lastAssistantMsg.isGenerating = true;
+                                // 保存纯文本内容
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = generatingMsg.innerHTML;
+                                const plainText = tempDiv.textContent || tempDiv.innerText || '';
+                                if (plainText) {
+                                    lastAssistantMsg.content = plainText;
+                                }
                             }
                         }
                     }
+
                     this.saveCurrentSession();
                 }
 
@@ -3820,10 +3862,13 @@
             },
 
             // 保存当前会话
+            // 保存当前会话
             saveCurrentSession: function () {
                 if (!this.currentSessionId || !this.sessions[this.currentSessionId]) return;
 
                 const session = this.sessions[this.currentSessionId];
+
+                // 确保保存最新的消息历史
                 session.messages = [...conversationHistory];
                 session.updatedAt = new Date().toISOString();
 
@@ -3846,6 +3891,11 @@
                     maxTokens: maxTokens.value,
                     contextLength: contextLength.value
                 };
+
+                // 如果有活跃的请求，标记为生成中
+                if (this.activeRequests.has(this.currentSessionId)) {
+                    session.status = 'generating';
+                }
 
                 this.saveSessions();
             },
@@ -11905,6 +11955,10 @@
 
         if (newSessionBtn) {
             newSessionBtn.addEventListener('click', () => {
+                // 先保存当前会话
+                if (SessionManager.currentSessionId) {
+                    SessionManager.saveCurrentSession();
+                }
                 SessionManager.createNewSession();
                 historyPanel.classList.remove('open');
             });
@@ -11918,6 +11972,10 @@
 
         if (addSessionTab) {
             addSessionTab.addEventListener('click', () => {
+                // 先保存当前会话
+                if (SessionManager.currentSessionId) {
+                    SessionManager.saveCurrentSession();
+                }
                 SessionManager.createNewSession();
             });
         }
