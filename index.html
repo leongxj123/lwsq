@@ -21,7 +21,8 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: min(1400px, 95%);
+            /* 最大1400px，但不超过屏幕的95% */
             margin: 0 auto;
             width: 100%;
             height: 100vh;
@@ -29,6 +30,20 @@
             flex-direction: column;
             background-color: white;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 针对大屏幕的优化 */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1500px;
+            }
+        }
+
+        /* 针对超大屏幕的优化 */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1700px;
+            }
         }
 
         .header {
@@ -933,6 +948,167 @@
                 transform: none;
                 margin-top: 4px;
                 justify-content: center;
+            }
+
+            /* PDF最小化按钮样式 */
+            .pdf-minimize-btn {
+                background: rgba(255, 193, 7, 0.2) !important;
+                border: 1px solid rgba(255, 193, 7, 0.3) !important;
+                color: #ffc107 !important;
+                margin-right: 8px !important;
+            }
+
+            .pdf-minimize-btn:hover {
+                background: rgba(255, 193, 7, 0.3) !important;
+            }
+
+            /* 浮动PDF按钮样式 - 固定在视窗右下角 */
+            .pdf-float-button {
+                position: fixed !important;
+                /* 确保是fixed定位 */
+                bottom: 30px !important;
+                right: 30px !important;
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 50%;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.1);
+                cursor: pointer;
+                z-index: 999999 !important;
+                /* 确保在最顶层 */
+                display: none;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                transition: all 0.3s ease;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+
+                /* 添加固定定位的关键样式 */
+                transform: none !important;
+                margin: 0 !important;
+                top: auto !important;
+                left: auto !important;
+            }
+
+            .pdf-float-button:hover {
+                transform: scale(1.1);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.2);
+            }
+
+            /* 添加呼吸灯效果让按钮更明显 */
+            .pdf-float-button.breathing {
+                animation: breathing 2s ease-in-out infinite;
+            }
+
+            @keyframes breathing {
+
+                0%,
+                100% {
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.1);
+                }
+
+                50% {
+                    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.8), 0 0 0 5px rgba(255, 255, 255, 0.3);
+                }
+            }
+
+            .pdf-float-button:active {
+                transform: scale(0.95);
+            }
+
+            /* 添加脉冲动画提示用户 */
+            .pdf-float-button::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background: inherit;
+                opacity: 0.6;
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes bounceIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.3) translateY(100px);
+                }
+
+                50% {
+                    transform: scale(1.05) translateY(0);
+                }
+
+                70% {
+                    transform: scale(0.9) translateY(0);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.6;
+                }
+
+                50% {
+                    transform: scale(1.2);
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: scale(1.2);
+                    opacity: 0;
+                }
+            }
+
+            /* 徽章样式 */
+            .pdf-float-badge {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: #e74c3c;
+                color: white;
+                border-radius: 12px;
+                padding: 3px 8px;
+                font-size: 11px;
+                font-weight: bold;
+                display: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            .pdf-float-badge.show {
+                display: block;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* 响应式调整 */
+            @media (max-width: 768px) {
+                .pdf-float-button {
+                    bottom: 80px;
+                    right: 15px;
+                    width: 48px;
+                    height: 48px;
+                }
+
+                .pdf-float-button svg {
+                    width: 24px;
+                    height: 24px;
+                }
             }
 
             .bulk-controls {
@@ -2535,7 +2711,6 @@
 </head>
 
 <body>
-
     <div class="literature-sidebar" id="literatureSidebar">
         <div class="literature-sidebar-header">
             <h3>📚 文献阅读助手</h3>
@@ -2781,6 +2956,13 @@
         </div>
     </div>
 
+    <div class="pdf-float-button" id="pdfFloatButton" style="display: none;" title="打开PDF预览器">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+        </svg>
+        <span class="pdf-float-badge" id="pdfFloatBadge"></span>
+    </div>
+
     <div class="copy-toast" id="copyToast">复制成功</div>
 
     <div class="pdf-viewer-container" id="pdfViewerContainer">
@@ -2794,6 +2976,7 @@
             <div class="pdf-viewer-controls">
 
                 <div class="pdf-controls-main">
+                    <button class="pdf-control-btn pdf-minimize-btn" id="pdfMinimizeLeft" title="最小化预览器">⎯</button>
 
                     <div class="pdf-control-group">
                         <button class="pdf-control-btn" id="pdfPrevPage" title="上一页 (←)">◀</button>
@@ -3440,6 +3623,250 @@
         const attachmentIndicator = document.getElementById('attachmentIndicator');
 
         const rtlRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+
+        // 在 pdfMinimize 的事件监听器附近添加新的最小化功能
+
+        // 左上角最小化按钮
+        const pdfMinimizeLeft = document.getElementById('pdfMinimizeLeft');
+        const pdfFloatButton = document.getElementById('pdfFloatButton');
+        const pdfFloatBadge = document.getElementById('pdfFloatBadge');
+
+        if (pdfMinimizeLeft) {
+            pdfMinimizeLeft.addEventListener('click', () => {
+                minimizePDFViewer();
+            });
+        }
+
+        if (pdfFloatButton) {
+            pdfFloatButton.addEventListener('click', () => {
+                restorePDFViewer();
+            });
+        }
+
+        // 最小化PDF预览器功能
+        function minimizePDFViewer() {
+            const container = document.getElementById('pdfViewerContainer');
+            const floatButton = document.getElementById('pdfFloatButton');
+            const badge = document.getElementById('pdfFloatBadge');
+
+            if (!container || !floatButton) {
+                console.error('找不到必要的元素:', {
+                    container: !!container,
+                    floatButton: !!floatButton
+                });
+                return;
+            }
+
+            // 隐藏预览器
+            container.style.display = 'none';
+            container.classList.remove('active');
+
+            // 确保浮动按钮显示并固定在右下角
+            floatButton.style.display = 'flex';
+            floatButton.style.visibility = 'visible';
+            floatButton.style.opacity = '1';
+            floatButton.style.position = 'fixed';  // 确保是fixed定位
+            floatButton.style.bottom = '30px';
+            floatButton.style.right = '30px';
+            floatButton.style.zIndex = '999999';
+
+            // 如果有PDF加载，显示页数
+            if (currentPDF && totalPages > 0) {
+                badge.textContent = `${currentPage}/${totalPages}`;
+                badge.style.display = 'block';
+
+                // 更新浮动按钮的标题
+                const fileName = currentPDFFileName || 'PDF文档';
+                floatButton.title = `点击恢复PDF预览器\n${fileName}\n第${currentPage}/${totalPages}页`;
+            }
+
+            // 添加提示动画
+            floatButton.style.animation = 'bounceIn 0.5s ease';
+
+            // 添加呼吸灯效果
+            floatButton.classList.add('breathing');
+
+            showStatus('PDF预览器已最小化，点击右下角按钮可重新打开', 'info');
+            console.log('PDF预览器已最小化，浮动按钮应该显示在右下角');
+        }
+
+        // 恢复PDF预览器功能 - 改进版
+        function restorePDFViewer() {
+            const container = document.getElementById('pdfViewerContainer');
+            const floatButton = document.getElementById('pdfFloatButton');
+
+            if (!container || !floatButton) {
+                console.error('找不到必要的元素');
+                return;
+            }
+
+            // 隐藏浮动按钮
+            floatButton.style.display = 'none';
+
+            // 显示预览器
+            container.style.display = 'flex';
+            container.classList.add('active');
+
+            // 确保PDF正常显示
+            if (currentPDF && currentPage) {
+                setTimeout(() => {
+                    renderPDFPage(currentPage);
+                }, 100);
+            }
+
+            showStatus('PDF预览器已恢复', 'success');
+            console.log('PDF预览器已恢复');
+        }
+
+        // 添加调试功能 - 检查浮动按钮状态
+        function checkFloatButtonStatus() {
+            const floatButton = document.getElementById('pdfFloatButton');
+            if (!floatButton) {
+                console.error('❌ 找不到浮动按钮元素！');
+                return;
+            }
+
+            const styles = window.getComputedStyle(floatButton);
+            console.log('浮动按钮状态:', {
+                display: styles.display,
+                visibility: styles.visibility,
+                opacity: styles.opacity,
+                position: styles.position,
+                zIndex: styles.zIndex,
+                bottom: styles.bottom,
+                right: styles.right,
+                width: styles.width,
+                height: styles.height
+            });
+
+            const rect = floatButton.getBoundingClientRect();
+            console.log('浮动按钮位置:', {
+                top: rect.top,
+                left: rect.left,
+                right: rect.right,
+                bottom: rect.bottom,
+                visible: rect.width > 0 && rect.height > 0
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 确保浮动按钮存在且在正确位置
+            const floatButton = document.getElementById('pdfFloatButton');
+            if (!floatButton) {
+                console.error('❌ 浮动按钮元素未找到，尝试创建');
+
+                // 动态创建浮动按钮并添加到body
+                const newFloatButton = document.createElement('div');
+                newFloatButton.className = 'pdf-float-button';
+                newFloatButton.id = 'pdfFloatButton';
+                newFloatButton.style.cssText = `
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            display: none;
+            z-index: 999999 !important;
+        `;
+                newFloatButton.title = '打开PDF预览器';
+                newFloatButton.innerHTML = `
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            <span class="pdf-float-badge" id="pdfFloatBadge"></span>
+        `;
+
+                // 添加到body的最后
+                document.body.appendChild(newFloatButton);
+
+                // 重新绑定事件
+                newFloatButton.addEventListener('click', () => {
+                    restorePDFViewer();
+                });
+
+                console.log('✅ 浮动按钮已动态创建并添加到body');
+            } else {
+                // 确保浮动按钮在body的直接子元素中
+                if (floatButton.parentElement !== document.body) {
+                    document.body.appendChild(floatButton);
+                    console.log('✅ 浮动按钮已移动到body下');
+                }
+            }
+        });
+
+        // 在浮动按钮上添加拖拽功能（可选）
+        function initFloatButtonDrag() {
+            const floatButton = document.getElementById('pdfFloatButton');
+            if (!floatButton) return;
+
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+
+            floatButton.addEventListener('mousedown', (e) => {
+                // 长按500ms后启动拖拽
+                const pressTimer = setTimeout(() => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+
+                    const rect = floatButton.getBoundingClientRect();
+                    initialX = rect.left;
+                    initialY = rect.top;
+
+                    floatButton.style.cursor = 'move';
+                    e.preventDefault();
+                }, 500);
+
+                floatButton.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                }, { once: true });
+
+                floatButton.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                }, { once: true });
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+
+                floatButton.style.right = 'auto';
+                floatButton.style.bottom = 'auto';
+                floatButton.style.left = (initialX + deltaX) + 'px';
+                floatButton.style.top = (initialY + deltaY) + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    floatButton.style.cursor = 'pointer';
+                }
+            });
+        }
+
+        // 初始化浮动按钮拖拽
+        setTimeout(initFloatButtonDrag, 100);
+
+        // 添加双击浮动按钮快速定位到当前页功能
+        if (pdfFloatButton) {
+            pdfFloatButton.addEventListener('dblclick', (e) => {
+                e.stopPropagation();
+                restorePDFViewer();
+
+                // 滚动到PDF当前页的顶部
+                if (pdfCanvasContainer) {
+                    pdfCanvasContainer.scrollTop = 0;
+                }
+            });
+        }
+
+        function closePDFViewer() {
+            console.log('⚠️ closePDFViewer 被调用 - 执行最小化');
+
+            // 直接调用最小化函数
+            minimizePDFViewer();
+        }
 
         function initializeLibraries() {
             console.log('Initializing libraries...');
@@ -4852,18 +5279,46 @@
             if (!pdfCanvasContainer) return;
 
             pdfCanvasContainer.addEventListener('wheel', (e) => {
-
+                // Ctrl+滚轮 = 缩放
                 if (e.ctrlKey) {
                     e.preventDefault();
-
                     const rect = pdfCanvasContainer.getBoundingClientRect();
                     const centerPoint = {
                         x: e.clientX - rect.left + pdfCanvasContainer.scrollLeft,
                         y: e.clientY - rect.top + pdfCanvasContainer.scrollTop
                     };
-
                     const factor = e.deltaY > 0 ? 0.9 : 1.1;
                     zoomPDF(factor, centerPoint);
+                }
+                // 普通滚轮 = 滚动页面内容，到达边界时自动翻页
+                else {
+                    // 检查是否滚动到底部
+                    const scrollTop = pdfCanvasContainer.scrollTop;
+                    const scrollHeight = pdfCanvasContainer.scrollHeight;
+                    const clientHeight = pdfCanvasContainer.clientHeight;
+
+                    // 向下滚动到底部时，自动翻到下一页
+                    if (e.deltaY > 0 && scrollTop + clientHeight >= scrollHeight - 5) {
+                        if (currentPage < totalPages) {
+                            e.preventDefault();
+                            renderPDFPage(currentPage + 1).then(() => {
+                                // 翻页后滚动到顶部
+                                pdfCanvasContainer.scrollTop = 0;
+                            });
+                        }
+                    }
+                    // 向上滚动到顶部时，自动翻到上一页
+                    else if (e.deltaY < 0 && scrollTop <= 5) {
+                        if (currentPage > 1) {
+                            e.preventDefault();
+                            renderPDFPage(currentPage - 1).then(() => {
+                                // 翻页后滚动到底部
+                                setTimeout(() => {
+                                    pdfCanvasContainer.scrollTop = pdfCanvasContainer.scrollHeight;
+                                }, 100);
+                            });
+                        }
+                    }
                 }
             }, { passive: false });
 
@@ -5736,32 +6191,6 @@
                 scaleY: scaleY.toFixed(2),
                 finalScale: currentScale.toFixed(2)
             });
-        }
-
-        function closePDFViewer() {
-            console.log('⚠️ closePDFViewer 被调用 - 仅关闭预览器，保留PDF状态');
-            console.trace('调用堆栈:');
-
-            pdfViewerContainer.classList.remove('active');
-
-            currentPage = 1;
-            currentScale = 1.0;
-
-            clearPDFSelection();
-
-            pdfAnnotations = [];
-            pdfBookmarks = [];
-            updatePDFAnnotationsList();
-            updatePDFBookmarksList();
-
-            if (reopenPDFBtn && currentPDF && currentPDFFile) {
-                reopenPDFBtn.style.display = 'inline-block';
-            }
-
-            logPDFStatus('closePDFViewer执行后（保留PDF状态）');
-            showStatus('PDF预览器已关闭，PDF文件仍可用于分析。点击"重新打开"可恢复预览', 'info');
-
-            updatePDFStatusIndicator();
         }
 
         async function getCurrentPDFFile() {
@@ -9226,9 +9655,19 @@
 
             currentEditingMessageId = messageId;
 
+            // 使用原始内容（如果有附件的话）或普通内容
             const contentToEdit = message.originalContent || message.content;
 
-            messageInput.value = contentToEdit;
+            // 如果内容包含附件标记，只提取实际的消息部分
+            let actualMessage = contentToEdit;
+            if (contentToEdit.includes('[附件:')) {
+                // 移除附件相关的URL和标记，只保留用户输入的文本
+                const parts = contentToEdit.split(' ');
+                actualMessage = parts.filter(part => !part.startsWith('http')).join(' ');
+                actualMessage = actualMessage.replace(/$$附件:.*?$$/g, '').trim();
+            }
+
+            messageInput.value = actualMessage;
             messageInput.focus();
 
             autoResizeTextarea(messageInput);
@@ -9673,27 +10112,81 @@
             saveConfig();
 
             if (currentEditingMessageId) {
-
+                // 处理消息编辑
                 const messageIndex = conversationHistory.findIndex(msg => msg.id === currentEditingMessageId);
                 if (messageIndex !== -1) {
-
+                    // 获取消息元素
                     const messageElement = messageElements.get(currentEditingMessageId);
                     if (messageElement) {
-
+                        // 更新UI显示
                         const contentDiv = messageElement.querySelector('.message-content');
-                        contentDiv.textContent = message;
 
-                        conversationHistory[messageIndex].content = message;
+                        // 保留原有的附件信息（如果有）
+                        const oldMessage = conversationHistory[messageIndex];
+                        let displayContent = message;
+                        let apiContent = message;
 
+                        // 检查原消息是否有附件
+                        if (oldMessage.content.includes('[附件:')) {
+                            const attachmentMatch = oldMessage.content.match(/$$附件:.*?$$/);
+                            if (attachmentMatch) {
+                                displayContent = message + '\n\n' + attachmentMatch[0];
+                            }
+                        }
+
+                        // 如果originalContent存在且包含URL，说明有附件
+                        if (oldMessage.originalContent && oldMessage.originalContent.startsWith('http')) {
+                            const urls = oldMessage.originalContent.split(' ').filter(part => part.startsWith('http'));
+                            if (urls.length > 0) {
+                                apiContent = urls.join(' ') + ' ' + message;
+                            }
+                        }
+
+                        // 更新显示内容
+                        contentDiv.textContent = displayContent;
+
+                        // 更新历史记录
+                        conversationHistory[messageIndex].content = displayContent;
+                        conversationHistory[messageIndex].originalContent = apiContent;
+
+                        // 删除此消息之后的所有消息
+                        for (let i = conversationHistory.length - 1; i > messageIndex; i--) {
+                            const msgToDelete = conversationHistory[i];
+                            if (msgToDelete.id) {
+                                const elem = messageElements.get(msgToDelete.id);
+                                if (elem) {
+                                    elem.remove();
+                                    messageElements.delete(msgToDelete.id);
+                                }
+                            }
+                        }
+                        conversationHistory = conversationHistory.slice(0, messageIndex + 1);
+
+                        // 清理编辑状态
                         currentEditingMessageId = null;
                         sendButton.textContent = '发送';
-
                         messageInput.value = '';
                         messageInput.style.height = 'auto';
 
                         saveConfig();
+                        showStatus('消息已更新，正在重新生成回复...', 'success');
 
-                        showStatus('消息已更新', 'success');
+                        // 重新发送请求获取AI回复
+                        isGenerating = true;
+                        sendButton.disabled = true;
+                        sendButton.innerHTML = '生成中<span class="loading active"></span>';
+                        stopButton.style.display = 'inline-block';
+
+                        // 使用更新后的内容发送API请求
+                        await sendAPIRequest(apiContent);
+
+                        isGenerating = false;
+                        sendButton.disabled = false;
+                        sendButton.innerHTML = '发送';
+                        stopButton.style.display = 'none';
+                        abortController = null;
+                        messageInput.focus();
+
                         return;
                     }
                 }
@@ -10229,14 +10722,80 @@
             }
         }
 
-        // JavaScript功能
-        document.getElementById('fullscreenButton').addEventListener('click', () => {
-            const container = document.querySelector('.container');
-            if (!document.fullscreenElement) {
-                container.requestFullscreen();
-            } else {
-                document.exitFullscreen();
+        const FullscreenManager = {
+            isFullscreen: false,
+
+            toggle: function () {
+                if (!document.fullscreenElement) {
+                    this.enter();
+                } else {
+                    this.exit();
+                }
+            },
+
+            enter: function () {
+                document.documentElement.requestFullscreen().then(() => {
+                    this.isFullscreen = true;
+                    document.body.classList.add('fullscreen-mode');
+                    this.adjustZIndex();
+                    showStatus('已进入全屏模式，按ESC退出', 'info');
+                }).catch(err => {
+                    console.error('无法进入全屏:', err);
+                    showStatus('全屏模式不可用', 'error');
+                });
+            },
+
+            exit: function () {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().then(() => {
+                        this.isFullscreen = false;
+                        document.body.classList.remove('fullscreen-mode');
+                        this.resetZIndex();
+                        showStatus('已退出全屏模式', 'info');
+                    });
+                }
+            },
+
+            adjustZIndex: function () {
+                // 调整所有弹窗的z-index以确保在全屏模式下可见
+                const elements = [
+                    '.confirm-dialog',
+                    '.literature-sidebar',
+                    '.pdf-viewer-container',
+                    '.page-upload-dialog',
+                    '.note-editor'
+                ];
+
+                elements.forEach(selector => {
+                    const el = document.querySelector(selector);
+                    if (el) {
+                        el.style.setProperty('z-index', '10001', 'important');
+                    }
+                });
+            },
+
+            resetZIndex: function () {
+                // 重置z-index
+                const elements = [
+                    '.confirm-dialog',
+                    '.literature-sidebar',
+                    '.pdf-viewer-container',
+                    '.page-upload-dialog',
+                    '.note-editor'
+                ];
+
+                elements.forEach(selector => {
+                    const el = document.querySelector(selector);
+                    if (el) {
+                        el.style.removeProperty('z-index');
+                    }
+                });
             }
+        };
+
+        // 替换原来的全屏按钮事件
+        document.getElementById('fullscreenButton').addEventListener('click', () => {
+            FullscreenManager.toggle();
         });
 
         window.addEventListener('error', function (e) {
