@@ -69,6 +69,322 @@
             z-index: 2;
         }
 
+        /* 历史记录管理样式 */
+        .history-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-panel.open {
+            right: 0;
+        }
+
+        .history-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .history-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .history-search {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .history-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .history-actions {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            gap: 10px;
+        }
+
+        .history-action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .history-new-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .history-new-btn:hover {
+            background: #218838;
+        }
+
+        .history-delete-selected-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .history-delete-selected-btn:hover {
+            background: #c82333;
+        }
+
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .history-item {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .history-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #007bff;
+        }
+
+        .history-item.active {
+            background: #e7f3ff;
+            border-color: #007bff;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+        }
+
+        .history-item.selected {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .history-item-checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+
+        .history-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            padding-right: 30px;
+        }
+
+        .history-item-meta {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .history-item-date {
+            margin-right: 10px;
+        }
+
+        .history-item-messages {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .history-empty {
+            text-align: center;
+            color: #6c757d;
+            padding: 40px 20px;
+        }
+
+        .session-indicator {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #007bff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .session-indicator.show {
+            display: block;
+        }
+
+        /* 会话标签栏 */
+        .session-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            padding: 5px 10px;
+            gap: 5px;
+            overflow-x: auto;
+            align-items: center;
+        }
+
+        .session-tab {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px 4px 0 0;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+            max-width: 150px;
+        }
+
+        .session-tab:hover {
+            background: #f8f9fa;
+        }
+
+        .session-tab.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .session-tab-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .session-tab-close {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+        }
+
+        .session-tab-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .session-tab.active .session-tab-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .session-tab-add {
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .session-tab-add:hover {
+            background: #218838;
+        }
+
+        .session-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6c757d;
+        }
+
+        .session-status.generating {
+            background: #ffc107;
+            animation: pulse 1.5s infinite;
+        }
+
+        .session-status.completed {
+            background: #28a745;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .history-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            .session-tabs {
+                padding: 3px 5px;
+            }
+
+            .session-tab {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+
         .header-button {
             background-color: rgba(255, 255, 255, 0.2);
             border: none;
@@ -2769,6 +3085,21 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
+        <!-- 会话标签栏 -->
+        <div class="session-tabs" id="sessionTabs">
+            <button class="session-tab-add" id="addSessionTab">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                新建
+            </button>
+        </div>
+
+        <!-- 会话指示器 -->
+        <div class="session-indicator" id="sessionIndicator">
+            当前会话: <span id="currentSessionName">新对话</span>
+        </div>
         <div class="header">
             <h1>智能学术助手</h1>
             <h3>用于团队项目研究</h3>
@@ -2779,6 +3110,15 @@
                         <path d="M12 3v12M7 11l5 5 5-5M5 21h14"></path>
                     </svg>
                     导出
+                </button>
+                <button id="historyButton" class="header-button" title="历史记录">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <polyline points="23 20 23 14 17 14"></polyline>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                    </svg>
+                    历史
                 </button>
                 <button id="sidebarOpenBtn" class="header-button" title="打开文献阅读助手">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -2822,7 +3162,7 @@
                     <option value="gpt-5-all">gpt5图文分析</option>
                     <option value="gpt-4o-all">GPT图文分析</option>
                     <option value="学术科研1">文献检索1</option>
-                    <option value="学术科研3">文献检索22</option>
+                    <option value="学术科研3">文献检索2</option>
                     <option value="ResearchGPT">ResearchGPT</option>
                     <option value="Pubmed检索">Pubmed检索</option>
                     <option value="PubMed报告">PubMed报告</option>
@@ -2955,6 +3295,26 @@
                 <textarea id="messageInput" placeholder="输入您的消息..." autofocus></textarea>
                 <button id="sendButton">发送</button>
                 <button id="stopButton">停止</button>
+            </div>
+        </div>
+        <!-- 历史记录面板 -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3>📚 历史记录</h3>
+                <button class="history-close-btn" id="historyCloseBtn">×</button>
+            </div>
+
+            <div class="history-search">
+                <input type="text" id="historySearchInput" placeholder="搜索历史记录..." />
+            </div>
+
+            <div class="history-actions">
+                <button class="history-action-btn history-new-btn" id="newSessionBtn">新建会话</button>
+                <button class="history-action-btn history-delete-selected-btn" id="deleteSelectedBtn">删除选中</button>
+            </div>
+
+            <div class="history-list" id="historyList">
+                <div class="history-empty">暂无历史记录</div>
             </div>
         </div>
     </div>
@@ -3272,6 +3632,498 @@
     <script>
 
         let conversationHistory = [];
+        // 会话管理系统
+        const SessionManager = {
+            sessions: {},  // 存储所有会话
+            currentSessionId: null,  // 当前会话ID
+            activeRequests: new Map(),  // 存储活跃的API请求
+
+            // 初始化会话管理器
+            init: function () {
+                this.loadSessions();
+                if (Object.keys(this.sessions).length === 0) {
+                    this.createNewSession();
+                } else {
+                    // 恢复最后一个会话
+                    const sessionIds = Object.keys(this.sessions);
+                    const lastSessionId = sessionIds[sessionIds.length - 1];
+                    this.switchToSession(lastSessionId);
+                }
+                this.renderSessionTabs();
+                this.renderHistoryList();
+            },
+
+            // 创建新会话
+            createNewSession: function (title = null) {
+                const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const now = new Date();
+
+                this.sessions[sessionId] = {
+                    id: sessionId,
+                    title: title || '新对话',
+                    messages: [],
+                    createdAt: now.toISOString(),
+                    updatedAt: now.toISOString(),
+                    status: 'idle',  // idle, generating, completed
+                    config: {
+                        apiUrl: apiUrlInput.value,
+                        apiKey: apiKeyInput.value,
+                        model: modelSelect.value,
+                        temperature: tempSlider.value,
+                        stream: streamCheckbox.checked,
+                        textDirection: textDirectionSelect.value,
+                        systemPrompt: systemPrompt.value,
+                        maxTokens: maxTokens.value,
+                        contextLength: contextLength.value
+                    }
+                };
+
+                this.currentSessionId = sessionId;
+                this.saveSessions();
+                this.renderSessionTabs();
+                this.renderHistoryList();
+
+                // 清空当前聊天界面
+                chatContainer.innerHTML = '';
+                conversationHistory = [];
+                messageElements.clear();
+
+                showStatus('新会话已创建', 'success');
+                sendButton.disabled = false;
+                sendButton.innerHTML = '发送';
+                stopButton.style.display = 'none';
+                messageInput.disabled = false;
+                messageInput.placeholder = '输入您的消息...';
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+                return sessionId;
+            },
+
+            // 切换到指定会话
+            switchToSession: function (sessionId, skipSave = false) {
+                if (!this.sessions[sessionId]) {
+                    console.error('会话不存在:', sessionId);
+                    return;
+                }
+
+                // 保存当前会话（如果需要）
+                if (!skipSave && this.currentSessionId && this.sessions[this.currentSessionId]) {
+                    // 保存当前正在生成的内容
+                    const currentSession = this.sessions[this.currentSessionId];
+                    if (currentSession.status === 'generating') {
+                        // 查找正在生成的消息并保存当前内容
+                        const generatingMsg = chatContainer.querySelector('.message.assistant:last-child .message-content');
+                        if (generatingMsg) {
+                            const lastAssistantMsg = currentSession.messages.filter(m => m.role === 'assistant').pop();
+                            if (lastAssistantMsg) {
+                                // 保存当前生成的内容（包括HTML）
+                                lastAssistantMsg.tempContent = generatingMsg.innerHTML;
+                                lastAssistantMsg.isGenerating = true;
+                            }
+                        }
+                    }
+                    this.saveCurrentSession();
+                }
+
+                // 切换到新会话
+                const previousSessionId = this.currentSessionId;
+                this.currentSessionId = sessionId;
+                const session = this.sessions[sessionId];
+
+                // 恢复会话配置
+                if (session.config) {
+                    apiUrlInput.value = session.config.apiUrl || apiUrlInput.value;
+                    apiKeyInput.value = session.config.apiKey || apiKeyInput.value;
+                    modelSelect.value = session.config.model || modelSelect.value;
+                    tempSlider.value = session.config.temperature || tempSlider.value;
+                    tempValue.textContent = tempSlider.value;
+                    streamCheckbox.checked = session.config.stream !== false;
+                    textDirectionSelect.value = session.config.textDirection || 'auto';
+                    systemPrompt.value = session.config.systemPrompt || '';
+                    maxTokens.value = session.config.maxTokens || 128000;
+                    contextLength.value = session.config.contextLength || 10;
+                }
+
+                // 清空并重新加载消息
+                chatContainer.innerHTML = '';
+                conversationHistory = [];
+                messageElements.clear();
+
+                // 加载会话消息
+                if (session.messages && session.messages.length > 0) {
+                    conversationHistory = [...session.messages];
+                    session.messages.forEach(msg => {
+                        if (msg.role !== 'system') {
+                            const msgElement = addMessageToUI(msg.role, msg.content || '', msg.id, msg.originalContent);
+
+                            // 如果这是一个正在生成的助手消息
+                            if (msg.role === 'assistant' && msg.isGenerating) {
+                                const contentDiv = msgElement.contentDiv;
+
+                                // 如果有临时保存的内容，使用它
+                                if (msg.tempContent) {
+                                    contentDiv.innerHTML = msg.tempContent;
+                                    processMessageContent(contentDiv);
+                                } else if (!msg.content) {
+                                    contentDiv.innerHTML = '<span class="loading active">正在生成...</span>';
+                                } else {
+                                    // 如果有部分内容，显示它
+                                    contentDiv.innerHTML = parseMarkdown(msg.content);
+                                    processMessageContent(contentDiv);
+
+                                    // 如果还在生成中，添加加载指示器
+                                    if (session.status === 'generating') {
+                                        const loadingSpan = document.createElement('span');
+                                        loadingSpan.className = 'loading active';
+                                        loadingSpan.textContent = '...';
+                                        contentDiv.appendChild(loadingSpan);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 更新UI
+                this.renderSessionTabs();
+                this.updateSessionIndicator();
+
+                // 更新输入框和按钮状态 - 只根据当前会话状态
+                const isCurrentSessionGenerating = this.activeRequests.has(sessionId);
+
+                if (isCurrentSessionGenerating) {
+                    // 当前会话正在生成
+                    sendButton.disabled = true;
+                    sendButton.innerHTML = '生成中<span class="loading active"></span>';
+                    stopButton.style.display = 'inline-block';
+                    messageInput.disabled = true;
+                    messageInput.placeholder = '等待生成完成...';
+                } else {
+                    // 当前会话空闲
+                    sendButton.disabled = false;
+                    sendButton.innerHTML = '发送';
+                    stopButton.style.display = 'none';
+                    messageInput.disabled = false;
+                    messageInput.placeholder = '输入您的消息...';
+
+                    // 清空输入框
+                    messageInput.value = '';
+                    messageInput.style.height = 'auto';
+                }
+
+                // 滚动到底部
+                setTimeout(() => {
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 100);
+
+                showStatus('已切换到: ' + session.title, 'info');
+            },
+
+            // 保存当前会话
+            saveCurrentSession: function () {
+                if (!this.currentSessionId || !this.sessions[this.currentSessionId]) return;
+
+                const session = this.sessions[this.currentSessionId];
+                session.messages = [...conversationHistory];
+                session.updatedAt = new Date().toISOString();
+
+                // 更新会话标题（使用第一条用户消息）
+                const firstUserMessage = conversationHistory.find(msg => msg.role === 'user');
+                if (firstUserMessage && session.title === '新对话') {
+                    session.title = firstUserMessage.content.substring(0, 30) +
+                        (firstUserMessage.content.length > 30 ? '...' : '');
+                }
+
+                // 保存配置
+                session.config = {
+                    apiUrl: apiUrlInput.value,
+                    apiKey: apiKeyInput.value,
+                    model: modelSelect.value,
+                    temperature: tempSlider.value,
+                    stream: streamCheckbox.checked,
+                    textDirection: textDirectionSelect.value,
+                    systemPrompt: systemPrompt.value,
+                    maxTokens: maxTokens.value,
+                    contextLength: contextLength.value
+                };
+
+                this.saveSessions();
+            },
+
+            // 删除会话
+            deleteSession: function (sessionId) {
+                if (!this.sessions[sessionId]) return;
+
+                // 如果删除的是当前会话，切换到其他会话
+                if (sessionId === this.currentSessionId) {
+                    const sessionIds = Object.keys(this.sessions).filter(id => id !== sessionId);
+                    if (sessionIds.length > 0) {
+                        this.switchToSession(sessionIds[sessionIds.length - 1]);
+                    } else {
+                        // 如果没有其他会话，创建新会话
+                        this.createNewSession();
+                    }
+                }
+
+                // 取消该会话的任何活跃请求
+                if (this.activeRequests.has(sessionId)) {
+                    const controller = this.activeRequests.get(sessionId);
+                    controller.abort();
+                    this.activeRequests.delete(sessionId);
+                }
+
+                delete this.sessions[sessionId];
+                this.saveSessions();
+                this.renderSessionTabs();
+                this.renderHistoryList();
+
+                showStatus('会话已删除', 'success');
+            },
+
+            // 保存所有会话到本地存储
+            saveSessions: function () {
+                try {
+                    localStorage.setItem('chatSessions', JSON.stringify(this.sessions));
+                } catch (e) {
+                    console.error('保存会话失败:', e);
+                    showStatus('会话保存失败，可能存储空间不足', 'error');
+                }
+            },
+
+            // 从本地存储加载会话
+            loadSessions: function () {
+                try {
+                    const saved = localStorage.getItem('chatSessions');
+                    if (saved) {
+                        this.sessions = JSON.parse(saved);
+                    }
+                } catch (e) {
+                    console.error('加载会话失败:', e);
+                    this.sessions = {};
+                }
+            },
+
+            // 渲染会话标签
+            renderSessionTabs: function () {
+                const tabsContainer = document.getElementById('sessionTabs');
+                if (!tabsContainer) return;
+
+                // 清空现有标签（保留添加按钮）
+                const existingTabs = tabsContainer.querySelectorAll('.session-tab');
+                existingTabs.forEach(tab => tab.remove());
+
+                // 添加所有会话标签
+                const sessionIds = Object.keys(this.sessions);
+                sessionIds.forEach(sessionId => {
+                    const session = this.sessions[sessionId];
+                    const tab = document.createElement('div');
+                    tab.className = 'session-tab';
+                    if (sessionId === this.currentSessionId) {
+                        tab.classList.add('active');
+                    }
+
+                    // 状态指示器
+                    const status = document.createElement('div');
+                    status.className = 'session-status';
+                    if (session.status === 'generating') {
+                        status.classList.add('generating');
+                    } else if (session.status === 'completed') {
+                        status.classList.add('completed');
+                    }
+
+                    // 标题
+                    const title = document.createElement('div');
+                    title.className = 'session-tab-title';
+                    title.textContent = session.title;
+                    title.title = session.title;
+
+                    // 关闭按钮
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'session-tab-close';
+                    closeBtn.innerHTML = '×';
+                    closeBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        if (confirm('确定要关闭这个会话吗？')) {
+                            this.deleteSession(sessionId);
+                        }
+                    };
+
+                    tab.appendChild(status);
+                    tab.appendChild(title);
+                    tab.appendChild(closeBtn);
+
+                    tab.onclick = () => {
+                        if (sessionId !== this.currentSessionId) {
+                            this.switchToSession(sessionId);
+                        }
+                    };
+
+                    // 插入到添加按钮之前
+                    const addBtn = tabsContainer.querySelector('.session-tab-add');
+                    tabsContainer.insertBefore(tab, addBtn);
+                });
+            },
+
+            // 渲染历史记录列表
+            renderHistoryList: function (searchTerm = '') {
+                const historyList = document.getElementById('historyList');
+                if (!historyList) return;
+
+                const sessionIds = Object.keys(this.sessions);
+
+                // 过滤和排序
+                let filteredSessions = sessionIds
+                    .map(id => this.sessions[id])
+                    .filter(session => {
+                        if (!searchTerm) return true;
+                        return session.title.toLowerCase().includes(searchTerm.toLowerCase());
+                    })
+                    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+                if (filteredSessions.length === 0) {
+                    historyList.innerHTML = '<div class="history-empty">暂无历史记录</div>';
+                    return;
+                }
+
+                historyList.innerHTML = '';
+
+                filteredSessions.forEach(session => {
+                    const item = document.createElement('div');
+                    item.className = 'history-item';
+                    if (session.id === this.currentSessionId) {
+                        item.classList.add('active');
+                    }
+
+                    // 复选框
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'history-item-checkbox';
+                    checkbox.onclick = (e) => {
+                        e.stopPropagation();
+                        item.classList.toggle('selected');
+                    };
+
+                    // 标题
+                    const title = document.createElement('div');
+                    title.className = 'history-item-title';
+                    title.textContent = session.title;
+
+                    // 元信息
+                    const meta = document.createElement('div');
+                    meta.className = 'history-item-meta';
+
+                    const date = document.createElement('span');
+                    date.className = 'history-item-date';
+                    date.textContent = new Date(session.updatedAt).toLocaleString();
+
+                    const messageCount = document.createElement('span');
+                    messageCount.className = 'history-item-messages';
+                    const msgCount = session.messages.filter(m => m.role !== 'system').length;
+                    messageCount.textContent = msgCount + ' 条消息';
+
+                    meta.appendChild(date);
+                    meta.appendChild(messageCount);
+
+                    item.appendChild(checkbox);
+                    item.appendChild(title);
+                    item.appendChild(meta);
+
+                    item.onclick = () => {
+                        this.switchToSession(session.id);
+                        document.getElementById('historyPanel').classList.remove('open');
+                    };
+
+                    historyList.appendChild(item);
+                });
+            },
+
+            // 更新会话指示器
+            updateSessionIndicator: function () {
+                const indicator = document.getElementById('sessionIndicator');
+                const nameSpan = document.getElementById('currentSessionName');
+
+                if (!this.currentSessionId || !this.sessions[this.currentSessionId]) return;
+
+                const session = this.sessions[this.currentSessionId];
+                if (nameSpan) {
+                    nameSpan.textContent = session.title;
+                }
+
+                // 短暂显示指示器
+                if (indicator) {
+                    indicator.classList.add('show');
+                    setTimeout(() => {
+                        indicator.classList.remove('show');
+                    }, 2000);
+                }
+            },
+
+            // 注册API请求
+            registerRequest: function (sessionId, controller) {
+                this.activeRequests.set(sessionId, controller);
+                if (this.sessions[sessionId]) {
+                    this.sessions[sessionId].status = 'generating';
+                    this.renderSessionTabs();
+                }
+            },
+
+            // 完成API请求
+            completeRequest: function (sessionId) {
+                this.activeRequests.delete(sessionId);
+                if (this.sessions[sessionId]) {
+                    this.sessions[sessionId].status = 'completed';
+
+                    // 清除所有消息的生成状态
+                    if (this.sessions[sessionId].messages) {
+                        this.sessions[sessionId].messages.forEach(msg => {
+                            if (msg.isGenerating) {
+                                msg.isGenerating = false;
+                                delete msg.tempContent; // 清除临时内容
+                            }
+                        });
+                    }
+
+                    this.saveCurrentSession();
+                    this.renderSessionTabs();
+                }
+
+                // 如果是当前会话，更新UI
+                if (sessionId === this.currentSessionId) {
+                    // 移除所有加载指示器
+                    const loadingElements = document.querySelectorAll('.loading.active');
+                    loadingElements.forEach(el => el.remove());
+                }
+            },
+
+            // 搜索历史记录
+            searchHistory: function (searchTerm) {
+                this.renderHistoryList(searchTerm);
+            },
+
+            // 删除选中的历史记录
+            deleteSelectedHistory: function () {
+                const selectedItems = document.querySelectorAll('.history-item.selected');
+                if (selectedItems.length === 0) {
+                    showStatus('请先选择要删除的记录', 'warning');
+                    return;
+                }
+
+                if (!confirm(`确定要删除选中的 ${selectedItems.length} 条记录吗？`)) {
+                    return;
+                }
+
+                selectedItems.forEach(item => {
+                    const title = item.querySelector('.history-item-title').textContent;
+                    const session = Object.values(this.sessions).find(s => s.title === title);
+                    if (session) {
+                        this.deleteSession(session.id);
+                    }
+                });
+
+                showStatus(`已删除 ${selectedItems.length} 条记录`, 'success');
+            }
+        };
+
         let isGenerating = false;
         let selectionMode = false;
         let selectedMessages = new Set();
@@ -3299,6 +4151,7 @@
         let isSelecting = false;
         let selectionStart = { x: 0, y: 0 };
         let selectionEnd = { x: 0, y: 0 };
+
 
         const PDFState = {
             IDLE: 'idle',
@@ -9381,26 +10234,8 @@
                 contextLengthDesc.textContent = '保留最近' + savedContextLength + '条消息作为上下文';
             }
 
-            const savedHistory = localStorage.getItem('conversationHistory');
-            if (savedHistory) {
-                try {
-                    const parsedHistory = JSON.parse(savedHistory);
-
-                    conversationHistory = parsedHistory.map(msg => {
-                        if (!msg.id && msg.role !== 'system') {
-                            msg.id = generateMessageId();
-                        }
-                        return msg;
-                    });
-
-                    conversationHistory.forEach(msg => {
-                        if (msg.role === 'system') return;
-                        addMessageToUI(msg.role, msg.content, msg.id, msg.originalContent);
-                    });
-                } catch (e) {
-                    console.error('无法加载历史对话:', e);
-                }
-            }
+            // 初始化会话管理器而不是直接加载历史记录
+            SessionManager.init();
         }
 
         function generateMessageId() {
@@ -9418,7 +10253,8 @@
             localStorage.setItem('maxTokens', maxTokens.value);
             localStorage.setItem('contextLength', contextLength.value);
 
-            localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+            // 保存当前会话
+            SessionManager.saveCurrentSession();
         }
 
         function showStatus(message, type = 'info') {
@@ -9631,7 +10467,7 @@
 
             messageElements.set(messageId, messageDiv);
 
-            return { contentDiv, messageId, originalContent };
+            return { contentDiv, messageId, originalContent, messageElement: messageDiv };
         }
 
         function processMessageContent(contentDiv) {
@@ -9645,6 +10481,25 @@
 
                 img.addEventListener('load', function () {
                     chatContainer.scrollTop = chatContainer.scrollHeight;
+                });
+            });
+
+            // 处理所有链接，使其在新标签页打开
+            const links = contentDiv.querySelectorAll('a');
+            links.forEach(link => {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+
+                // 可选：为链接添加样式
+                link.style.textDecoration = 'underline';
+                link.style.color = '#007bff';
+
+                // 可选：添加悬停效果
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = '#0056b3';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.color = '#007bff';
                 });
             });
 
@@ -9960,16 +10815,45 @@
         }
 
         function stopGeneration() {
-            if (abortController) {
-                abortController.abort();
-                abortController = null;
+            const currentSessionId = SessionManager.currentSessionId;
 
+            // 获取当前会话的控制器
+            const controller = SessionManager.activeRequests.get(currentSessionId);
+
+            if (controller) {
+                controller.abort();
+                SessionManager.activeRequests.delete(currentSessionId);
+
+                // 更新会话状态
+                if (SessionManager.sessions[currentSessionId]) {
+                    SessionManager.sessions[currentSessionId].status = 'idle';
+
+                    // 标记消息生成已停止
+                    const messages = SessionManager.sessions[currentSessionId].messages;
+                    if (messages && messages.length > 0) {
+                        messages.forEach(msg => {
+                            if (msg.isGenerating) {
+                                msg.isGenerating = false;
+                                if (!msg.content.includes('[已停止生成]')) {
+                                    msg.content += "\n\n[已停止生成]";
+                                }
+                            }
+                        });
+                    }
+                }
+
+                // 更新UI
                 isGenerating = false;
                 sendButton.disabled = false;
                 sendButton.innerHTML = '发送';
                 stopButton.style.display = 'none';
+                messageInput.disabled = false;
+                messageInput.placeholder = '输入您的消息...';
 
+                SessionManager.renderSessionTabs();
                 showStatus('已停止生成', 'success');
+            } else {
+                showStatus('当前会话没有正在进行的生成任务', 'info');
             }
         }
 
@@ -10037,6 +10921,12 @@
                 return;
             }
 
+            // 保存发起请求时的会话ID
+            const requestSessionId = SessionManager.currentSessionId;
+
+            // 在会话中标记正在生成的消息
+            const session = SessionManager.sessions[requestSessionId];
+
             const apiMessages = prepareContext();
 
             let messageId = existingMessageId;
@@ -10046,6 +10936,14 @@
                 const { contentDiv: newContentDiv, messageId: newMessageId } = addMessage('assistant', '');
                 contentDiv = newContentDiv;
                 messageId = newMessageId;
+
+                // 标记这个消息正在生成
+                if (session) {
+                    const msgIndex = session.messages.findIndex(m => m.id === newMessageId);
+                    if (msgIndex !== -1) {
+                        session.messages[msgIndex].isGenerating = true;
+                    }
+                }
             }
 
             try {
@@ -10061,8 +10959,10 @@
 
                 abortController = new AbortController();
 
-                if (isStream) {
+                // 注册请求到会话管理器 - 使用请求时的会话ID
+                SessionManager.registerRequest(requestSessionId, abortController);
 
+                if (isStream) {
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: {
@@ -10079,8 +10979,12 @@
 
                     const reader = response.body.getReader();
                     const decoder = new TextDecoder();
+
+                    // 流式响应处理部分
                     let assistantMessage = '';
                     let markdownContent = '';
+                    let lastUpdateTime = Date.now();
+                    let updateCounter = 0;
 
                     while (true) {
                         const { done, value } = await reader.read();
@@ -10100,64 +11004,83 @@
                                     assistantMessage += content;
                                     markdownContent = assistantMessage;
 
-                                    contentDiv.innerHTML = parseMarkdown(markdownContent);
-                                    processMessageContent(contentDiv);
-
-                                    const direction = textDirectionSelect.value;
-                                    if (direction === 'rtl') {
-                                        contentDiv.classList.add('rtl');
-                                    } else if (direction === 'auto' && detectTextDirection(assistantMessage) === 'rtl') {
-                                        contentDiv.classList.add('rtl');
-                                    } else {
-                                        contentDiv.classList.remove('rtl');
-                                    }
-
-                                    if (!contentDiv.querySelector('.message-actions')) {
-                                        const actionsDiv = document.createElement('div');
-                                        actionsDiv.className = 'message-actions';
-
-                                        const copyButton = document.createElement('button');
-                                        copyButton.className = 'action-btn';
-                                        copyButton.textContent = '复制';
-                                        copyButton.addEventListener('click', (e) => {
-                                            e.stopPropagation();
-
-                                            const plainText = extractPlainText(contentDiv.innerHTML);
-
-                                            navigator.clipboard.writeText(plainText)
-                                                .then(() => showCopyToast())
-                                                .catch(err => showStatus('复制失败', 'error'));
-                                        });
-
-                                        if ('speechSynthesis' in window) {
-                                            const speakButton = document.createElement('button');
-                                            speakButton.className = 'action-btn';
-                                            speakButton.textContent = '朗读';
-                                            speakButton.addEventListener('click', (e) => {
-                                                e.stopPropagation();
-                                                window.speechSynthesis.cancel();
-
-                                                const plainText = extractPlainText(contentDiv.innerHTML);
-                                                const utterance = new SpeechSynthesisUtterance(plainText);
-
-                                                if (contentDiv.classList.contains('rtl')) {
-                                                    utterance.lang = 'ar';
-                                                }
-                                                window.speechSynthesis.speak(utterance);
-                                            });
-                                            actionsDiv.appendChild(speakButton);
+                                    // 始终更新会话中的消息内容，不管是不是当前会话
+                                    const targetSession = SessionManager.sessions[requestSessionId];
+                                    if (targetSession) {
+                                        const msgIndex = targetSession.messages.findIndex(m => m.id === messageId);
+                                        if (msgIndex !== -1) {
+                                            targetSession.messages[msgIndex].content = assistantMessage;
+                                            targetSession.messages[msgIndex].isGenerating = true;
                                         }
 
-                                        actionsDiv.appendChild(copyButton);
-                                        contentDiv.appendChild(actionsDiv);
-
-                                        const timestamp = document.createElement('div');
-                                        timestamp.className = 'message-timestamp';
-                                        timestamp.textContent = new Date().toLocaleTimeString();
-                                        contentDiv.appendChild(timestamp);
+                                        // 定期保存会话状态
+                                        updateCounter++;
+                                        const now = Date.now();
+                                        if (now - lastUpdateTime > 1000 || updateCounter % 50 === 0) {
+                                            lastUpdateTime = now;
+                                            SessionManager.saveSessions();
+                                        }
                                     }
 
-                                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                                    // 只有当前会话才更新UI显示
+                                    // 但要检查contentDiv是否还在DOM中（用户可能已经切换了会话）
+                                    if (SessionManager.currentSessionId === requestSessionId && document.body.contains(contentDiv)) {
+                                        contentDiv.innerHTML = parseMarkdown(markdownContent);
+                                        processMessageContent(contentDiv);
+
+                                        const direction = textDirectionSelect.value;
+                                        if (direction === 'rtl') {
+                                            contentDiv.classList.add('rtl');
+                                        } else if (direction === 'auto' && detectTextDirection(assistantMessage) === 'rtl') {
+                                            contentDiv.classList.add('rtl');
+                                        } else {
+                                            contentDiv.classList.remove('rtl');
+                                        }
+
+                                        // 确保操作按钮存在
+                                        if (!contentDiv.querySelector('.message-actions')) {
+                                            const actionsDiv = document.createElement('div');
+                                            actionsDiv.className = 'message-actions';
+
+                                            const copyButton = document.createElement('button');
+                                            copyButton.className = 'action-btn';
+                                            copyButton.textContent = '复制';
+                                            copyButton.addEventListener('click', (e) => {
+                                                e.stopPropagation();
+                                                const plainText = extractPlainText(contentDiv.innerHTML);
+                                                navigator.clipboard.writeText(plainText)
+                                                    .then(() => showCopyToast())
+                                                    .catch(err => showStatus('复制失败', 'error'));
+                                            });
+
+                                            if ('speechSynthesis' in window) {
+                                                const speakButton = document.createElement('button');
+                                                speakButton.className = 'action-btn';
+                                                speakButton.textContent = '朗读';
+                                                speakButton.addEventListener('click', (e) => {
+                                                    e.stopPropagation();
+                                                    window.speechSynthesis.cancel();
+                                                    const plainText = extractPlainText(contentDiv.innerHTML);
+                                                    const utterance = new SpeechSynthesisUtterance(plainText);
+                                                    if (contentDiv.classList.contains('rtl')) {
+                                                        utterance.lang = 'ar';
+                                                    }
+                                                    window.speechSynthesis.speak(utterance);
+                                                });
+                                                actionsDiv.appendChild(speakButton);
+                                            }
+
+                                            actionsDiv.appendChild(copyButton);
+                                            contentDiv.appendChild(actionsDiv);
+
+                                            const timestamp = document.createElement('div');
+                                            timestamp.className = 'message-timestamp';
+                                            timestamp.textContent = new Date().toLocaleTimeString();
+                                            contentDiv.appendChild(timestamp);
+                                        }
+
+                                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                                    }
                                 } catch (e) {
                                     console.error('Parse error:', e);
                                 }
@@ -10165,15 +11088,35 @@
                         }
                     }
 
-                    for (let i = 0; i < conversationHistory.length; i++) {
-                        if (conversationHistory[i].id === messageId) {
-                            conversationHistory[i].content = assistantMessage;
-                            break;
+                    // 最终更新会话中的消息
+                    const targetSession = SessionManager.sessions[requestSessionId];
+                    if (targetSession) {
+                        const msgIndex = targetSession.messages.findIndex(m => m.id === messageId);
+                        if (msgIndex !== -1) {
+                            targetSession.messages[msgIndex].content = assistantMessage;
+                            targetSession.messages[msgIndex].isGenerating = false;
+                        } else {
+                            targetSession.messages.push({
+                                role: 'assistant',
+                                content: assistantMessage,
+                                id: messageId,
+                                isGenerating: false
+                            });
+                        }
+                    }
+
+                    // 如果这个请求的会话仍然是当前会话，更新conversationHistory
+                    if (SessionManager.currentSessionId === requestSessionId) {
+                        for (let i = 0; i < conversationHistory.length; i++) {
+                            if (conversationHistory[i].id === messageId) {
+                                conversationHistory[i].content = assistantMessage;
+                                break;
+                            }
                         }
                     }
 
                 } else {
-
+                    // 非流式响应处理（保持不变）
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: {
@@ -10191,75 +11134,125 @@
                     const data = await response.json();
                     const assistantMessage = data.choices[0].message.content;
 
-                    contentDiv.innerHTML = parseMarkdown(assistantMessage);
-                    processMessageContent(contentDiv);
-
-
-                    const direction = textDirectionSelect.value;
-                    if (direction === 'rtl') {
-                        contentDiv.classList.add('rtl');
-                    } else if (direction === 'auto' && detectTextDirection(assistantMessage) === 'rtl') {
-                        contentDiv.classList.add('rtl');
-                    } else {
-                        contentDiv.classList.remove('rtl');
+                    // 更新会话中的消息
+                    const targetSession = SessionManager.sessions[requestSessionId];
+                    if (targetSession) {
+                        const msgIndex = targetSession.messages.findIndex(m => m.id === messageId);
+                        if (msgIndex !== -1) {
+                            targetSession.messages[msgIndex].content = assistantMessage;
+                            targetSession.messages[msgIndex].isGenerating = false;
+                        } else {
+                            targetSession.messages.push({
+                                role: 'assistant',
+                                content: assistantMessage,
+                                id: messageId,
+                                isGenerating: false
+                            });
+                        }
                     }
 
-                    const actionsDiv = document.createElement('div');
-                    actionsDiv.className = 'message-actions';
+                    // 只有当前会话才更新UI
+                    if (SessionManager.currentSessionId === requestSessionId && document.body.contains(contentDiv)) {
+                        contentDiv.innerHTML = parseMarkdown(assistantMessage);
+                        processMessageContent(contentDiv);
 
-                    const copyButton = document.createElement('button');
-                    copyButton.className = 'action-btn';
-                    copyButton.textContent = '复制';
-                    copyButton.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                        const direction = textDirectionSelect.value;
+                        if (direction === 'rtl') {
+                            contentDiv.classList.add('rtl');
+                        } else if (direction === 'auto' && detectTextDirection(assistantMessage) === 'rtl') {
+                            contentDiv.classList.add('rtl');
+                        } else {
+                            contentDiv.classList.remove('rtl');
+                        }
 
-                        const plainText = extractPlainText(contentDiv.innerHTML);
+                        const actionsDiv = document.createElement('div');
+                        actionsDiv.className = 'message-actions';
 
-                        navigator.clipboard.writeText(plainText)
-                            .then(() => showCopyToast())
-                            .catch(err => showStatus('复制失败', 'error'));
-                    });
-
-                    if ('speechSynthesis' in window) {
-                        const speakButton = document.createElement('button');
-                        speakButton.className = 'action-btn';
-                        speakButton.textContent = '朗读';
-                        speakButton.addEventListener('click', (e) => {
+                        const copyButton = document.createElement('button');
+                        copyButton.className = 'action-btn';
+                        copyButton.textContent = '复制';
+                        copyButton.addEventListener('click', (e) => {
                             e.stopPropagation();
-                            window.speechSynthesis.cancel();
-
                             const plainText = extractPlainText(contentDiv.innerHTML);
-                            const utterance = new SpeechSynthesisUtterance(plainText);
-
-                            if (contentDiv.classList.contains('rtl')) {
-                                utterance.lang = 'ar';
-                            }
-                            window.speechSynthesis.speak(utterance);
+                            navigator.clipboard.writeText(plainText)
+                                .then(() => showCopyToast())
+                                .catch(err => showStatus('复制失败', 'error'));
                         });
-                        actionsDiv.appendChild(speakButton);
-                    }
 
-                    actionsDiv.appendChild(copyButton);
-                    contentDiv.appendChild(actionsDiv);
+                        if ('speechSynthesis' in window) {
+                            const speakButton = document.createElement('button');
+                            speakButton.className = 'action-btn';
+                            speakButton.textContent = '朗读';
+                            speakButton.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                window.speechSynthesis.cancel();
+                                const plainText = extractPlainText(contentDiv.innerHTML);
+                                const utterance = new SpeechSynthesisUtterance(plainText);
+                                if (contentDiv.classList.contains('rtl')) {
+                                    utterance.lang = 'ar';
+                                }
+                                window.speechSynthesis.speak(utterance);
+                            });
+                            actionsDiv.appendChild(speakButton);
+                        }
 
-                    const timestamp = document.createElement('div');
-                    timestamp.className = 'message-timestamp';
-                    timestamp.textContent = new Date().toLocaleTimeString();
-                    contentDiv.appendChild(timestamp);
+                        actionsDiv.appendChild(copyButton);
+                        contentDiv.appendChild(actionsDiv);
 
-                    for (let i = 0; i < conversationHistory.length; i++) {
-                        if (conversationHistory[i].id === messageId) {
-                            conversationHistory[i].content = assistantMessage;
-                            break;
+                        const timestamp = document.createElement('div');
+                        timestamp.className = 'message-timestamp';
+                        timestamp.textContent = new Date().toLocaleTimeString();
+                        contentDiv.appendChild(timestamp);
+
+                        for (let i = 0; i < conversationHistory.length; i++) {
+                            if (conversationHistory[i].id === messageId) {
+                                conversationHistory[i].content = assistantMessage;
+                                break;
+                            }
                         }
                     }
                 }
 
-                saveConfig();
+                // 完成请求 - 使用请求时的会话ID
+                SessionManager.completeRequest(requestSessionId);
+
+                // 保存会话
+                SessionManager.saveCurrentSession();
+
+                // 只有当前会话才更新UI状态
+                if (SessionManager.currentSessionId === requestSessionId) {
+                    isGenerating = false;
+                    sendButton.disabled = false;
+                    sendButton.innerHTML = '发送';
+                    stopButton.style.display = 'none';
+                    messageInput.disabled = false;
+                    messageInput.placeholder = '输入您的消息...';
+                }
 
                 return true;
             } catch (error) {
-                handleAPIError(error, messageId, contentDiv);
+                SessionManager.completeRequest(requestSessionId);
+
+                // 更新会话中的消息状态
+                const targetSession = SessionManager.sessions[requestSessionId];
+                if (targetSession) {
+                    const msgIndex = targetSession.messages.findIndex(m => m.id === messageId);
+                    if (msgIndex !== -1) {
+                        targetSession.messages[msgIndex].isGenerating = false;
+                    }
+                }
+
+                if (SessionManager.currentSessionId === requestSessionId) {
+                    handleAPIError(error, messageId, contentDiv);
+
+                    // 恢复UI状态
+                    isGenerating = false;
+                    sendButton.disabled = false;
+                    sendButton.innerHTML = '发送';
+                    stopButton.style.display = 'none';
+                    messageInput.disabled = false;
+                    messageInput.placeholder = '输入您的消息...';
+                }
                 return false;
             }
         }
@@ -10881,6 +11874,110 @@
                 showStatus('初始化失败: ' + error.message, 'error');
             }
         }
+
+        // 初始化历史记录相关事件
+        const historyButton = document.getElementById('historyButton');
+        const historyPanel = document.getElementById('historyPanel');
+        const historyCloseBtn = document.getElementById('historyCloseBtn');
+        const historySearchInput = document.getElementById('historySearchInput');
+        const newSessionBtn = document.getElementById('newSessionBtn');
+        const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+        const addSessionTab = document.getElementById('addSessionTab');
+
+        if (historyButton) {
+            historyButton.addEventListener('click', () => {
+                historyPanel.classList.toggle('open');
+                SessionManager.renderHistoryList();
+            });
+        }
+
+        if (historyCloseBtn) {
+            historyCloseBtn.addEventListener('click', () => {
+                historyPanel.classList.remove('open');
+            });
+        }
+
+        if (historySearchInput) {
+            historySearchInput.addEventListener('input', (e) => {
+                SessionManager.searchHistory(e.target.value);
+            });
+        }
+
+        if (newSessionBtn) {
+            newSessionBtn.addEventListener('click', () => {
+                SessionManager.createNewSession();
+                historyPanel.classList.remove('open');
+            });
+        }
+
+        if (deleteSelectedBtn) {
+            deleteSelectedBtn.addEventListener('click', () => {
+                SessionManager.deleteSelectedHistory();
+            });
+        }
+
+        if (addSessionTab) {
+            addSessionTab.addEventListener('click', () => {
+                SessionManager.createNewSession();
+            });
+        }
+
+        // 在页面卸载前保存当前会话
+        window.addEventListener('beforeunload', () => {
+            // 处理页面可见性变化
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    // 页面变为可见时，刷新当前会话的UI
+                    const currentSession = SessionManager.sessions[SessionManager.currentSessionId];
+                    if (currentSession) {
+                        // 重新检查并更新输入框状态
+                        const isGenerating = SessionManager.activeRequests.has(SessionManager.currentSessionId);
+
+                        if (isGenerating) {
+                            sendButton.disabled = true;
+                            sendButton.innerHTML = '生成中<span class="loading active"></span>';
+                            stopButton.style.display = 'inline-block';
+                            messageInput.disabled = true;
+                            messageInput.placeholder = '等待生成完成...';
+                        } else {
+                            sendButton.disabled = false;
+                            sendButton.innerHTML = '发送';
+                            stopButton.style.display = 'none';
+                            messageInput.disabled = false;
+                            messageInput.placeholder = '输入您的消息...';
+                        }
+                    }
+                }
+            });
+
+            // 定期同步会话状态
+            setInterval(() => {
+                // 检查当前会话的实际状态
+                const currentSessionId = SessionManager.currentSessionId;
+                if (currentSessionId) {
+                    const isGenerating = SessionManager.activeRequests.has(currentSessionId);
+                    const buttonIsDisabled = sendButton.disabled;
+
+                    // 如果状态不一致，更新UI
+                    if (isGenerating !== buttonIsDisabled) {
+                        if (isGenerating) {
+                            sendButton.disabled = true;
+                            sendButton.innerHTML = '生成中<span class="loading active"></span>';
+                            stopButton.style.display = 'inline-block';
+                            messageInput.disabled = true;
+                            messageInput.placeholder = '等待生成完成...';
+                        } else {
+                            sendButton.disabled = false;
+                            sendButton.innerHTML = '发送';
+                            stopButton.style.display = 'none';
+                            messageInput.disabled = false;
+                            messageInput.placeholder = '输入您的消息...';
+                        }
+                    }
+                }
+            }, 500); // 每500ms检查一次
+            SessionManager.saveCurrentSession();
+        });
 
         function toggleConfig() {
             const configSection = document.querySelector('.config-section');
